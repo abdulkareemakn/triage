@@ -1,0 +1,50 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "oxc",
+    "import",
+    "react",
+    "jsx-a11y",
+    "vitest",
+    "node"
+  ],
+  "jsPlugins": ["@shadcn/lint"],
+  // @shadcn/lint@0.2.0 verified against Oxlint 1.85.0.
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "vitest/no-standalone-expect": "off",
+    "vitest/require-mock-type-parameters": "off",
+    "vitest/require-to-throw-message": "off",
+    "shadcn/no-restyle": ["error", { "allow": ["layout"] }],
+    "shadcn/no-unknown-classes": "error",
+    "shadcn/no-inline-styles": "error",
+    "shadcn/require-static-classes": "error"
+  },
+  "overrides": [
+    {
+      "files": ["apps/client/src/components/ui/**"],
+      "rules": {
+        "shadcn/no-restyle": "off",
+        "shadcn/require-static-classes": "off"
+      }
+    },
+    {
+      "files": ["packages/emails/**"],
+      "rules": {
+        "shadcn/no-inline-styles": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    ".agents/**",
+    ".claude/**",
+    "apps/client/src/routeTree.gen.ts",
+    "docs/site/**"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "mern-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @mern/server --filter @mern/mail dev",
+    "dev:ui": "pnpm --filter @mern/client dev",
+    "dev:mail": "pnpm --filter @mern/emails dev",
+    "build": "pnpm -r build",
+    "start": "pnpm --filter @mern/server start",
+    "typecheck": "pnpm -r typecheck",
+    "ui": "cd apps/client && pnpm dlx shadcn@latest",
+    "design": "designmd",
+    "design:lint": "designmd lint DESIGN.md",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "check": "pnpm lint && oxfmt --check .",
+    "format": "oxlint --fix && oxfmt .",
+    "test": "pnpm test:unit && pnpm test:integration",
+    "test:unit": "pnpm --filter @mern/server test:unit",
+    "test:integration": "pnpm --filter @mern/server test:integration",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "db:up": "docker compose -f compose.db.yaml up -d --wait",
+    "db:down": "docker compose -f compose.db.yaml down",
+    "docker:up": "docker compose up -d --build --wait",
+    "docker:down": "docker compose down"
+  },
+  "devDependencies": {
+    "@google/design.md": "0.4.0",
+    "@playwright/test": "^1.63.0",
+    "@shadcn/lint": "0.2.0",
+    "mongoose": "^9.10.1",
+    "oxfmt": "^0.70.0",
+    "oxlint": "^1.85.0",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "pnpm@11.3.0"
+}

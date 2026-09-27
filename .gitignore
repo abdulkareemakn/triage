@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.tanstack/
+.vite/
+.env
+.env.*
+!.env.example
+*.local
+*.tsbuildinfo
+playwright-report/
+test-results/
+.DS_Store

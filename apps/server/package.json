@@ -1,0 +1,35 @@
+{
+  "name": "@mern/server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --import ./alias-runtime.js --env-file-if-exists=../../.env --watch src/index.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "start": "node --import ./alias-runtime.js --env-file-if-exists=../../.env dist/index.js",
+    "test": "vitest run --root ../.. --config vitest.config.ts tests/unit",
+    "test:unit": "vitest run --root ../.. --config vitest.config.ts tests/unit",
+    "test:integration": "vitest run --root ../.. --config vitest.config.ts tests/integration"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1138.0",
+    "@aws-sdk/s3-request-presigner": "^3.1138.0",
+    "@mern/shared": "workspace:*",
+    "better-auth": "1.7.5",
+    "express": "^5.2.1",
+    "mime-types": "^3.0.2",
+    "mongoose": "^9.10.1",
+    "nodemailer": "^10.0.10",
+    "resend": "^6.28.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/mime-types": "^3.0.1",
+    "@types/node": "^24.0.0",
+    "@types/nodemailer": "^8.0.2",
+    "@types/supertest": "^7.2.1",
+    "supertest": "^7.2.2",
+    "vitest": "^5.0.1"
+  }
+}
