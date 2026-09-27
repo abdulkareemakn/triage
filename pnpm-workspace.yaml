@@ -5,7 +5,7 @@ packages:
 injectWorkspacePackages: true
 
 allowBuilds:
-  '@railway/cli': true
+  "@railway/cli": true
   "@scarf/scarf": true
   esbuild: true
   lightningcss: true
