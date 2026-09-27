@@ -29,10 +29,12 @@
   "devDependencies": {
     "@google/design.md": "0.4.0",
     "@playwright/test": "^1.63.0",
+    "@railway/cli": "^5.62.1",
     "@shadcn/lint": "0.2.0",
     "mongoose": "^9.10.1",
     "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",
+    "railway": "^3.11.0",
     "typescript": "7.0.2"
   },
   "engines": {
