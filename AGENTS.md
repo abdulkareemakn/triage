@@ -6,7 +6,7 @@ Before substantial work, run `pnpm dlx @tanstack/intent@latest list` from the wo
 
 <!-- intent-skills:end -->
 
-This is Triage, a university project built on a pnpm-workspace MERN starter. Read [WORKFLOW.md](WORKFLOW.md) before starting a task. [PRODUCT.md](PRODUCT.md) records the agreed product direction and open decisions; [DESIGN.md](DESIGN.md) records the current client design baseline. `project.typ` is the original proposal, not an approved feature specification. Package-specific guidance lives in nested `AGENTS.md` files.
+This is Triage, a university project built on a pnpm-workspace MERN starter. Read [WORKFLOW.md](WORKFLOW.md) before starting a task. [PRODUCT.md](PRODUCT.md) records the agreed product direction and open decisions; [DESIGN.md](DESIGN.md) records the current client design baseline. The inherited [developer guides](docs/README.md) explain the starter's technical patterns; verify them against current code. `project.typ` is the original proposal, not an approved feature specification. Package-specific guidance lives in nested `AGENTS.md` files.
 
 ## Task workflow
 

@@ -10,6 +10,7 @@ This is the working agreement for agents and contributors. The maintainer confir
 | `openspec/specs/`    | Accepted behavior. Changes under `openspec/changes/` record proposed deltas and their history. |
 | `DESIGN.md`          | Current client design system; its inherited baseline is not a final Triage identity.           |
 | `project.typ`        | Original university proposal, for reference only.                                              |
+| `docs/`              | Inherited starter development guides; verify examples against current Triage code.             |
 | Kaneo Triage project | Work items and delivery status.                                                                |
 
 When these disagree, stop and resolve the decision with the maintainer before implementing product behavior. Record the result in the relevant source of truth. Keep starter documentation as technical guidance, but do not treat its Launchpad features as Triage requirements.
@@ -24,8 +25,11 @@ When these disagree, stop and resolve the decision with the maintainer before im
 | `packages/emails`, `packages/mail` | Email templates and local mail service.                                                                            |
 | `.railway/railway.ts`              | Railway infrastructure definition; the web service currently tracks `main`.                                        |
 | `.github/workflows`                | PR checks and Docker image build.                                                                                  |
+| `docs/docs`                        | Local setup, build patterns, testing, deployment, and reference guides inherited from the starter.                 |
 
 The current client landing page and several configuration names still come from the starter. Replace them only as part of approved Triage work.
+
+Use the inherited guides by topic: [development workflow](docs/docs/installation/development-workflow.md), [project structure](docs/docs/installation/project-structure.md), [design and UI](docs/docs/build/design-system.md), [API routes](docs/docs/build/api-routes.md), [testing](docs/docs/quality/testing.md), and [Railway deployment](docs/docs/deployment/production.md). Read the relevant page before changing that area. The guide's Launchpad examples and browser-verification instructions do not override this workflow or the root `AGENTS.md`.
 
 ## From task to PR
 
