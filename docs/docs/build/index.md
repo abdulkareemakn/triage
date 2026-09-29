@@ -7,6 +7,10 @@ description: Build the application one connected concern at a time, from identit
 
 Build in the same order your users experience the product. Start with the data your feature owns, then decide who can access it. Validate each request before an API route writes data. Add a client page once the server contract is clear.
 
+Triage's confirmed first interface pass uses realistic local fixtures while API
+contracts are defined, then connects small end-to-end slices. Follow the root
+`WORKFLOW.md` and accepted OpenSpec changes for that sequence.
+
 You do not need every page for every feature. A public read-only page, for example,
 may only need a route and database query. Start with the smallest relevant path.
 
