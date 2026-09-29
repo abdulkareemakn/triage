@@ -19,3 +19,6 @@ This is Triage, a university project built on a pnpm-workspace MERN starter. Rea
 
 - Use pnpm; do not use npm or yarn.
 - Never read or write `.env`; use `.env.example`. The user manages environment variables and secrets.
+- Run terminal commands through the user's login `zsh` shell. This starts a new process; it does not attach to an existing interactive shell.
+- Use elevated shell permission from the first call for Git and pnpm commands. The default sandbox rejects writes under `.git` with `EROFS`, and pnpm store access can fail with `EROFS` while registering the project. Do not retry a known failure in the default sandbox.
+- Use elevated shell permission for authenticated or networked development CLIs. GitHub API access failed in the default sandbox and succeeded with the existing `gh` login when elevated. If a required CLI login is unavailable in the new shell, report that limit.
