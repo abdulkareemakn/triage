@@ -1,22 +1,31 @@
 # Triage product
 
-## Status
+## Status and intent
 
-The product definition is in progress. `project.typ` is the university proposal, not an approved list of features or acceptance criteria. Approved behavior will live in `openspec/specs/`; proposed changes will be reviewed before implementation.
+Triage helps a software team turn incoming reports into ticket candidates that a person reviews. [The original proposal](project.typ) suggests small and medium software teams as target users; that audience has not been confirmed. The proposal is a source of ideas, not an approved feature list. This file records confirmed scope as of 2026-09-29; detailed behavior belongs in OpenSpec changes and accepted specs.
 
-## Proposal to evaluate
+## October 28, 2026 university demonstration
 
-The proposal describes a tool for software teams to turn incoming signals into reviewed issue candidates. It suggests collecting text and error reports, extracting potential work with AI, grouping duplicates, reviewing candidates, searching sources, and sending approved issues to external trackers. The audience, first user journey, initial sources, AI approach, integrations, roles, and release scope still need decisions.
+The required outcome is a frontend demonstration with a working basic backend. Build the first interface against realistic local fixtures, then connect small end-to-end slices. The central journey is manual text intake, manual ticket-candidate creation, and human review. MongoDB stores the submitted text, candidate, and review decision. Approval is recorded inside Triage with its reviewer and time; sending an issue to GitHub or Jira is later work.
 
-## Current foundation
+A signed-in person may belong to multiple shared workspaces and chooses an active workspace. An admin invites people using a link or code and manages roles. The first role contract is:
 
-- React client with Vite and TanStack Router. Its landing page is still the inherited starter page.
-- Express API with MongoDB, Better Auth, health and current-user endpoints, and authenticated uploads.
-- Shared TypeScript API types, email preview and local mail development service.
-- Docker and Railway deployment files. The Railway web service currently builds from `main`.
+| Role      | Permissions                                               |
+| --------- | --------------------------------------------------------- |
+| Submitter | Add intake and candidates; view their status.             |
+| Reviewer  | View workspace submissions; approve or reject candidates. |
+| Admin     | Both sets of actions; manage invitations and roles.       |
 
-These are existing capabilities, not commitments to use every starter feature in Triage.
+The October demonstration also includes:
 
-## Next definition step
+- **Discord intake:** Import every new message from a selected channel after connection. Earlier history is outside this milestone. A bot running during the demonstration is sufficient. A Discord server can be created, but a developer application and bot have not yet been set up.
+- **AI duplicate suggestions:** Use OpenRouter embeddings for semantic comparison with existing candidates in the same workspace. Show likely matches with the matched text and score as evidence. A reviewer confirms or dismisses each suggestion. AI extraction and automatic candidate creation are outside this milestone.
+- **Discord notifications:** Post review decisions to a separately configured notification channel.
 
-Agree on the first useful Triage workflow and its acceptance criteria. The first interface milestone may use realistic fixtures, followed by small end-to-end slices. Add each approved capability to OpenSpec and then map it to Kaneo tasks. Keep delivery rules in [WORKFLOW.md](WORKFLOW.md) and interface rules in [DESIGN.md](DESIGN.md).
+The inherited React, Express, MongoDB, and Better Auth setup is the starting point, not a finished Triage product. The landing page and some configuration still carry the starter identity.
+
+## Scope still to settle
+
+University requirements are still being negotiated. Before implementation, agree on exact acceptance criteria and capture behavior in OpenSpec. Technical choices still to settle include the OpenRouter embedding model and matching threshold, Discord bot setup and channel configuration, and how the bot is run during the demo. The maintainer manages credentials; agents use `.env.example` for required setting names and never read or write `.env`.
+
+The remaining proposal features are candidates for later phases, not October commitments: meeting/customer/support/Sentry source connectors, AI action-item extraction and generated candidate fields, semantic search, GitHub/Jira export, richer review actions, dashboards and filters, and broader notifications. See [ROADMAP.md](ROADMAP.md) for delivery order and dependencies.
