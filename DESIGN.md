@@ -1,6 +1,6 @@
 ---
 version: alpha
-name: Launchpad — MERN Course Starter
+name: Triage — inherited design baseline
 colors:
   background: "oklch(1 0 0)"
   foreground: "oklch(0.145 0 0)"
@@ -132,7 +132,7 @@ components:
 
 ## Overview
 
-This is a restrained, accessible baseline for a student project. The neutral semantic palette and Inter Variable are replaceable after the product direction is chosen; this file records the current implementation so agents do not guess.
+This is the inherited, accessible starter baseline, not an approved Triage visual identity. The neutral semantic palette and Inter Variable are replaceable after the product direction is chosen; this file records the current implementation so agents do not guess.
 
 ## Colors
 
