@@ -1,6 +1,6 @@
 ---
 version: alpha
-name: Launchpad — MERN Course Starter
+name: Triage — inherited design baseline
 colors:
   background: "oklch(1 0 0)"
   foreground: "oklch(0.145 0 0)"
@@ -132,7 +132,9 @@ components:
 
 ## Overview
 
-This is a restrained, accessible baseline for a student project. The neutral semantic palette and Inter Variable are replaceable after the product direction is chosen; this file records the current implementation so agents do not guess.
+The approved direction is a calm, professional workspace for software teams. [Plane](https://github.com/makeplane/plane) and [Kaneo](https://github.com/usekaneo/kaneo) are the main open-source references; [Linear](https://linear.app/) is a secondary visual reference. Study their hierarchy and interaction patterns without copying their branding or assuming their features belong in Triage.
+
+The tokens below still describe the inherited, accessible starter baseline. The neutral semantic palette and Inter Variable have not yet been chosen for Triage; TRI-5 will turn the approved direction into a complete design system and reconcile it with the client CSS and shadcn configuration. Until then, this file records the current implementation so agents do not guess.
 
 ## Colors
 

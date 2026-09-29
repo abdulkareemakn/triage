@@ -16,7 +16,7 @@ Before editing files for a substantial task:
 
 - Run the cheapest relevant tests while iterating and affected tests before finishing.
 - Prefer unit or API integration tests when a browser adds no confidence.
-- Use Playwright for complete user workflows, not repeated screenshots or element-by-element checks.
+- Do not run browser automation or manual browser checks. PR CI runs Playwright for complete workflows; the maintainer performs visual review.
 - Add or update tests when behavior changes; run broader suites for significant changes.
 
 ## Design system

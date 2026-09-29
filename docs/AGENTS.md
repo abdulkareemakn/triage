@@ -1,0 +1,1 @@
+Follow the repository's root `AGENTS.md` and `WORKFLOW.md`. Use `rules.md` as editorial guidance for these inherited pages. Verify technical claims against the current Triage code, and keep starter examples separate from agreed product behavior.
