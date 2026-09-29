@@ -1,7 +1,8 @@
 ## Task and specification
 
+- PR kind: <!-- planning / implementation / docs or isolated fix -->
 - Kaneo: <!-- TRI-3 and task link -->
-- OpenSpec change: <!-- path or N/A -->
+- OpenSpec change: <!-- active path, archived path, or N/A -->
 
 ## What changed
 

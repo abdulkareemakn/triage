@@ -12,7 +12,7 @@ This is Triage, a university project built on a pnpm-workspace MERN starter. Rea
 
 - Use the Triage project in Kaneo. Create tasks in To Do, move the active task to In Progress, and move it to In Review when its PR opens. The maintainer approves and merges PRs; move a task to Done after merge and, for app changes, a successful Railway deployment check.
 - Use one feature branch per Kaneo task. Use a separate worktree when work is concurrent or the current checkout has unfinished changes. Follow [WORKFLOW.md](WORKFLOW.md) for branch, review, and OpenSpec steps.
-- Create an OpenSpec change for product behavior or architecture changes. Keep proposal artifacts and implementation on the task branch; archive and sync specs after review changes are resolved and before merge. Routine documentation, copy, formatting, and isolated bug fixes do not require a full OpenSpec proposal.
+- Create an OpenSpec change for product behavior or architecture changes. A planning-only PR may merge the complete active change without code or archive; implementation then uses a separate Kaneo task and branch. Archive and sync specs after implementation review changes are resolved and before its merge. Routine documentation, copy, formatting, and isolated bug fixes do not require a full OpenSpec proposal.
 - Keep the first interface milestone fixture-backed, then implement small end-to-end slices. Do not treat proposal features or inherited starter UI as approved Triage scope.
 
 ## Changes and verification
