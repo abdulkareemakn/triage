@@ -2,7 +2,7 @@
 
 ## Status and intent
 
-Triage helps a software team turn incoming reports into ticket candidates that a person reviews. [The original proposal](project.typ) suggests small and medium software teams as target users; that audience has not been confirmed. The proposal is a source of ideas, not an approved feature list. This file records confirmed scope as of 2026-09-29; detailed behavior belongs in OpenSpec changes and accepted specs.
+Triage helps small and medium software teams turn incoming reports into ticket candidates that a person reviews. [The original proposal](project.typ) is a source of ideas, not an approved feature list. This file records confirmed scope as of 2026-09-29; detailed behavior belongs in OpenSpec changes and accepted specs.
 
 ## October 28, 2026 university demonstration
 
@@ -24,8 +24,10 @@ The October demonstration also includes:
 
 The inherited React, Express, MongoDB, and Better Auth setup is the starting point, not a finished Triage product. The landing page and some configuration still carry the starter identity.
 
+The approved interface direction is a calm, professional workspace for software teams, with Plane and Kaneo as the main open-source references and Linear as a secondary reference. [DESIGN.md](DESIGN.md) records this direction; its current tokens still describe the inherited starter baseline.
+
 ## Scope still to settle
 
-University requirements are still being negotiated. Before implementation, agree on exact acceptance criteria and capture behavior in OpenSpec. Technical choices still to settle include the OpenRouter embedding model and matching threshold, Discord bot setup and channel configuration, and how the bot is run during the demo. The maintainer manages credentials; agents use `.env.example` for required setting names and never read or write `.env`.
+University requirements are still being negotiated. Before implementation, agree on exact acceptance criteria and capture behavior in OpenSpec. Technical choices still to settle include the OpenRouter embedding model and matching threshold, Discord bot setup and channel configuration, and how the bot is run during the demo. The design direction still needs concrete tokens and component guidance. The maintainer manages credentials; agents use `.env.example` for required setting names and never read or write `.env`.
 
 The remaining proposal features are candidates for later phases, not October commitments: meeting/customer/support/Sentry source connectors, AI action-item extraction and generated candidate fields, semantic search, GitHub/Jira export, richer review actions, dashboards and filters, and broader notifications. See [ROADMAP.md](ROADMAP.md) for delivery order and dependencies.
