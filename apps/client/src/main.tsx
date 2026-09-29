@@ -3,8 +3,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { getRouter } from "@/router";
-import "@fontsource-variable/inter";
 
+import "@fontsource/space-mono/latin-400.css";
+import "@fontsource/space-mono/latin-700.css";
 import "@/styles.css";
 
 const root = document.getElementById("app");
