@@ -36,17 +36,17 @@ colors:
   dark-border: "oklch(1 0 0 / 10%)"
 typography:
   body:
-    fontFamily: "Inter Variable, Inter, system-ui, sans-serif"
+    fontFamily: '"PP Mori", system-ui, sans-serif'
     fontSize: 1rem
     fontWeight: 400
     lineHeight: 1.5
   heading:
-    fontFamily: "Inter Variable, Inter, system-ui, sans-serif"
+    fontFamily: "Domine, Georgia, serif"
     fontSize: 1.875rem
     fontWeight: 600
     lineHeight: 1.2
   code:
-    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace"
+    fontFamily: '"Space Mono", ui-monospace, monospace'
     fontSize: 0.875rem
     fontWeight: 400
     lineHeight: 1.5
@@ -134,7 +134,7 @@ components:
 
 The approved direction is a calm, professional workspace for software teams. [Plane](https://github.com/makeplane/plane) and [Kaneo](https://github.com/usekaneo/kaneo) are the main open-source references; [Linear](https://linear.app/) is a secondary visual reference. Study their hierarchy and interaction patterns without copying their branding or assuming their features belong in Triage.
 
-The tokens below still describe the inherited, accessible starter baseline. The neutral semantic palette and Inter Variable have not yet been chosen for Triage; TRI-5 will turn the approved direction into a complete design system and reconcile it with the client CSS and shadcn configuration. Until then, this file records the current implementation so agents do not guess.
+The neutral semantic palette and several other tokens still describe the inherited starter baseline. Typography is now selected for Triage: PP Mori for body and interface text, Domine for headings, and Space Mono for code.
 
 ## Colors
 
@@ -142,7 +142,7 @@ Light tokens map directly to `:root` in `apps/client/src/styles.css`; `dark-*` t
 
 ## Typography
 
-Inter Variable is bundled with Fontsource and loaded from the application origin. Body text is readable at the browser default size; headings use a modest weight and unitless leading. Preserve browser text scaling and add a separate display role only when the product needs one.
+PP Mori is bundled locally for body and interface text. Domine is bundled locally for headings, and Space Mono is self-hosted through Fontsource for code. Body text starts at the browser default size; heading leading stays compact, and code remains secondary to body text. Preserve browser text scaling.
 
 ## Layout
 
@@ -173,6 +173,6 @@ Lucide is the configured interface icon family. Brand identities may use on-dema
 
 ## Implementation
 
-The implementation uses Base UI, shadcn CSS variables, Tailwind v4, and `components.json`. `DESIGN.md` is canonical; shadcn configuration and CSS are implementations that must be reconciled after changes. Validate with `pnpm design:lint`.
+The implementation uses Base UI, shadcn CSS variables, Tailwind v4, and `components.json`. Typography maps to Tailwind's `font-sans`, `font-serif`, and `font-mono` families; PP Mori and Domine are bundled locally, and Space Mono is self-hosted through Fontsource. `DESIGN.md` is canonical; shadcn configuration and CSS are implementations that must be reconciled after changes. Validate with `pnpm design:lint`.
 
 The lint report may identify `ring` and dark border as unreferenced tokens because they are non-text focus/separator values rather than contrast-testable component foregrounds; they remain documented implementation roles in CSS.
