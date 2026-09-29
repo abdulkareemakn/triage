@@ -201,8 +201,8 @@ pnpm test:integration
 pnpm test:e2e
 ```
 
-Before opening a pull request or finishing a substantial change, run the relevant fast
-suite and then the broader suites:
+Before finishing a substantial change, run the relevant fast suite and then the
+broader suites:
 
 ```bash
 pnpm test

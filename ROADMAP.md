@@ -13,7 +13,7 @@ This roadmap separates the confirmed October 28, 2026 university demonstration f
 | 5. AI duplicate review             | OpenRouter embeddings rank existing candidates in the same workspace; the interface presents matched text and score, and a reviewer confirms or dismisses each suggestion. | Similar candidates produce reviewable suggestions; cross-workspace candidates are excluded. OpenRouter access is a prerequisite.      |
 | 6. Demonstration readiness         | Integrate the slices, run repository checks and relevant tests, review the UI with the maintainer, and confirm Railway deployment.                                         | A repeatable demonstration covers the full journey with the bot running.                                                              |
 
-Work may be split into smaller Kaneo tasks and PRs. The order describes dependencies, not exact dates or a requirement to complete one whole row before starting the next. Agents keep Kaneo tasks in To Do until work starts, In Progress while working, In Review during PR review, and Done after merge and the required deployment check.
+Work may be split into smaller Kaneo tasks and local branches. The order describes dependencies, not exact dates or a requirement to complete one whole row before starting the next. Agents keep Kaneo tasks in To Do until work starts, In Progress while working, In Review during local review, and Done after the verified branch merges into local `main`. The maintainer decides when to push `main` and deploy the accumulated changes.
 
 ## Later proposal candidates
 
