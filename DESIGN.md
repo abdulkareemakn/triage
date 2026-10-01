@@ -169,7 +169,7 @@ Use Base UI shadcn primitives from `apps/client/src/components/ui`, semantic col
 
 ## Iconography
 
-Lucide is the configured interface icon family. Brand identities may use on-demand Simple Icons exports from `react-icons/si`; brand icons are not a replacement for interface icons.
+Use Tabler from `@tabler/icons-react` for interface icons. Keep its 2px default stroke and `currentColor`; use the surrounding component's icon sizing, or 16px for inline actions and 20px for standalone navigation icons. Align icons with their label baselines, and give icon-only controls an accessible name. Brand identities may use official brand assets; brand icons are not a replacement for interface icons.
 
 ## Implementation
 
