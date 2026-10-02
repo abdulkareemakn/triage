@@ -1,39 +1,45 @@
 ---
 version: alpha
-name: Triage — inherited design baseline
+name: Triage design system
 colors:
-  background: "oklch(1 0 0)"
-  foreground: "oklch(0.145 0 0)"
+  background: "oklch(0.9814 0.0045 258.32)"
+  foreground: "oklch(0.2157 0.0224 257.29)"
   card: "oklch(1 0 0)"
-  card-foreground: "oklch(0.145 0 0)"
-  popover: "oklch(1 0 0)"
-  popover-foreground: "oklch(0.145 0 0)"
-  primary: "oklch(0.205 0 0)"
-  primary-foreground: "oklch(0.985 0 0)"
-  secondary: "oklch(0.97 0 0)"
-  secondary-foreground: "oklch(0.205 0 0)"
-  muted: "oklch(0.97 0 0)"
-  muted-foreground: "oklch(0.5 0 0)"
-  accent: "oklch(0.97 0 0)"
-  accent-foreground: "oklch(0.205 0 0)"
-  destructive: "oklch(0.577 0.245 27.325)"
-  border: "oklch(0.922 0 0)"
-  input: "oklch(0.922 0 0)"
-  ring: "oklch(0.708 0 0)"
-  dark-background: "oklch(0.145 0 0)"
-  dark-foreground: "oklch(0.985 0 0)"
-  dark-card: "oklch(0.205 0 0)"
-  dark-card-foreground: "oklch(0.985 0 0)"
-  dark-primary: "oklch(0.922 0 0)"
-  dark-primary-foreground: "oklch(0.205 0 0)"
-  dark-secondary: "oklch(0.269 0 0)"
-  dark-secondary-foreground: "oklch(0.985 0 0)"
-  dark-muted: "oklch(0.269 0 0)"
-  dark-muted-foreground: "oklch(0.708 0 0)"
-  dark-accent: "oklch(0.269 0 0)"
-  dark-accent-foreground: "oklch(0.985 0 0)"
-  dark-destructive: "oklch(0.704 0.191 22.216)"
-  dark-border: "oklch(1 0 0 / 10%)"
+  card-foreground: "{colors.foreground}"
+  popover: "{colors.card}"
+  popover-foreground: "{colors.foreground}"
+  primary: "oklch(0.3777 0.1061 258.94)"
+  primary-foreground: "oklch(1 0 0)"
+  secondary: "oklch(0.9630 0.0062 255.48)"
+  secondary-foreground: "oklch(0.2903 0.0231 256.42)"
+  muted: "{colors.secondary}"
+  muted-foreground: "oklch(0.4606 0.0261 256.80)"
+  accent: "oklch(0.9399 0.0259 259.05)"
+  accent-foreground: "oklch(0.3106 0.0879 259.05)"
+  destructive: "oklch(0.4545 0.1735 23.48)"
+  destructive-foreground: "oklch(1 0 0)"
+  border: "oklch(0.9244 0.0087 264.52)"
+  input: "oklch(0.6312 0.0217 260.16)"
+  ring: "oklch(0.5346 0.1296 258.70)"
+  dark-background: "oklch(0.1801 0.0191 255.77)"
+  dark-foreground: "{colors.background}"
+  dark-card: "{colors.foreground}"
+  dark-card-foreground: "{colors.background}"
+  dark-popover: "oklch(0.2908 0.0247 258.35)"
+  dark-popover-foreground: "{colors.background}"
+  dark-primary: "oklch(0.7142 0.1079 258.74)"
+  dark-primary-foreground: "oklch(0.2348 0.0671 258.73)"
+  dark-secondary: "oklch(0.2908 0.0247 258.35)"
+  dark-secondary-foreground: "{colors.background}"
+  dark-muted: "oklch(0.2659 0.0236 256.43)"
+  dark-muted-foreground: "oklch(0.7158 0.0184 256.31)"
+  dark-accent: "oklch(0.3106 0.0879 259.05)"
+  dark-accent-foreground: "oklch(0.9399 0.0259 259.05)"
+  dark-destructive: "oklch(0.8549 0.0786 25.58)"
+  dark-destructive-foreground: "oklch(0.1488 0.0216 259.63)"
+  dark-border: "oklch(0.3192 0.0258 260.06)"
+  dark-input: "oklch(0.5313 0.0218 255.61)"
+  dark-ring: "{colors.dark-primary}"
 typography:
   body:
     fontFamily: '"PP Mori", system-ui, sans-serif'
@@ -81,13 +87,13 @@ components:
     backgroundColor: "{colors.background}"
     textColor: "{colors.muted-foreground}"
     typography: "{typography.body}"
-  destructive-button:
-    backgroundColor: "{colors.destructive}"
-    textColor: "{colors.primary-foreground}"
-    rounded: "{rounded.md}"
   popover:
     backgroundColor: "{colors.popover}"
     textColor: "{colors.popover-foreground}"
+  destructive-action:
+    backgroundColor: "{colors.destructive}"
+    textColor: "{colors.destructive-foreground}"
+    rounded: "{rounded.md}"
   muted-surface:
     backgroundColor: "{colors.muted}"
     textColor: "{colors.muted-foreground}"
@@ -110,6 +116,9 @@ components:
   dark-card:
     backgroundColor: "{colors.dark-card}"
     textColor: "{colors.dark-card-foreground}"
+  dark-popover:
+    backgroundColor: "{colors.dark-popover}"
+    textColor: "{colors.dark-popover-foreground}"
   dark-primary-button:
     backgroundColor: "{colors.dark-primary}"
     textColor: "{colors.dark-primary-foreground}"
@@ -122,9 +131,9 @@ components:
   dark-accent-surface:
     backgroundColor: "{colors.dark-accent}"
     textColor: "{colors.dark-accent-foreground}"
-  dark-danger:
+  dark-destructive-action:
     backgroundColor: "{colors.dark-destructive}"
-    textColor: "{colors.dark-primary-foreground}"
+    textColor: "{colors.dark-destructive-foreground}"
   dark-field:
     backgroundColor: "{colors.dark-card}"
     textColor: "{colors.dark-foreground}"
@@ -134,11 +143,11 @@ components:
 
 The approved direction is a calm, professional workspace for software teams. [Plane](https://github.com/makeplane/plane) and [Kaneo](https://github.com/usekaneo/kaneo) are the main open-source references; [Linear](https://linear.app/) is a secondary visual reference. Study their hierarchy and interaction patterns without copying their branding or assuming their features belong in Triage.
 
-The neutral semantic palette and several other tokens still describe the inherited starter baseline. Typography is now selected for Triage: PP Mori for body and interface text, Domine for headings, and Space Mono for code.
+The semantic palette is defined for Triage in light and dark modes. Typography is selected for Triage: PP Mori for body and interface text, Domine for headings, and Space Mono for code.
 
 ## Colors
 
-Light tokens map directly to `:root` in `apps/client/src/styles.css`; `dark-*` tokens map to the `.dark` block. The default system uses neutral surfaces, a dark primary action, and a recognizable destructive red. Add accent, status, or chart ramps only when a feature needs them.
+The palette uses slate-tinted surfaces with navy primary actions and distinct red destructive states. Values were supplied in hex and are stored as equivalent OKLCH values in CSS. Light tokens map directly to `:root` in `apps/client/src/styles.css`; `dark-*` tokens map to the `.dark` block. The current destructive button uses a translucent destructive fill and destructive-colored text. Add status or chart colors only when a feature needs them.
 
 ## Typography
 
@@ -175,4 +184,4 @@ Use Tabler from `@tabler/icons-react` for interface icons. Keep its 2px default 
 
 The implementation uses Base UI, shadcn CSS variables, Tailwind v4, and `components.json`. Typography maps to Tailwind's `font-sans`, `font-serif`, and `font-mono` families; PP Mori and Domine are bundled locally, and Space Mono is self-hosted through Fontsource. `DESIGN.md` is canonical; shadcn configuration and CSS are implementations that must be reconciled after changes. Validate with `pnpm design:lint`.
 
-The lint report may identify `ring` and dark border as unreferenced tokens because they are non-text focus/separator values rather than contrast-testable component foregrounds; they remain documented implementation roles in CSS.
+The lint report may identify `ring` and dark border/input as unreferenced tokens because they are focus and control-boundary values rather than text foregrounds; they remain documented implementation roles in CSS.
