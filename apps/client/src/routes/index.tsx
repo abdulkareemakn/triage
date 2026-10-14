@@ -1,301 +1,394 @@
+import {
+  IconArrowNarrowRight,
+  IconBrandDiscord,
+  IconMinus,
+  IconPlus,
+} from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+import { useState, type ReactNode } from "react";
 
+import { CreditedPhoto } from "@/components/credited-photo";
+import { CandidateCardFragment } from "@/components/fragments/candidate-card";
+import { DecisionLogFragment } from "@/components/fragments/decision-log";
+import { DuplicateSuggestionFragment } from "@/components/fragments/duplicate-suggestion";
+import { IntakeListFragment } from "@/components/fragments/intake-list";
+import { NotificationFragment } from "@/components/fragments/notification";
+import { ReviewQueueFragment } from "@/components/fragments/review-queue";
+import { RoleListFragment } from "@/components/fragments/role-list";
+import { WorkspaceDialogFragment } from "@/components/fragments/workspace-dialog";
+import { MaskedLines, Reveal } from "@/components/reveal";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button";
+import { buildRequestAccessMailto } from "@/lib/contact";
+import { MEDIA_CREDITS } from "@/lib/media-credits";
+import { SAMPLE_ROLES } from "@/lib/sample-data";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({ component: LandingPage });
 
-const repository = "https://github.com/abdulkareemakn/mern-app-starter";
-const docs = "https://mern-app-starter.pages.dev";
-const setupGuide = `${docs}/installation/`;
-const productName = "Launchpad";
-const externalLogos: Record<string, string> = {
-  react: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/react.svg",
-  bucket: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/backblaze.svg",
-  "better-auth":
-    "https://raw.githubusercontent.com/better-auth/better-auth/v1.7.5/docs/public/branding/svg/better-auth-mark-bg-light.svg",
-  oxc: "https://cdn.jsdelivr.net/gh/oxc-project/oxc-assets@main/icon-flat-light.svg",
-  vitest: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/vitest.svg",
-};
-const linkStyle =
-  "inline-flex min-h-11 items-center underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground";
-const primaryAction = buttonVariants({
-  size: "lg",
+const [switchboardCredit, exchangeCredit, cardIndexCredit] = MEDIA_CREDITS;
+
+const mailtoHref = buildRequestAccessMailto();
+
+const primaryButtonClass = buttonVariants({
   className:
-    "min-h-11 px-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground motion-reduce:transition-none motion-reduce:active:translate-y-0",
+    "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring",
+  size: "xl",
 });
 
-const chapters = [
+const stages = [
   {
-    title: "Build the application",
-    description: "The foundations for your first feature.",
-    start: 1,
-    features: [
-      {
-        title: "shadcn/ui & design-md",
-        description:
-          "Base UI components, Tailwind styling, and a documented design system for shaping your interface.",
-        logo: "react",
-      },
-      {
-        title: "MongoDB & Mongoose",
-        description:
-          "A shared MongoDB connection, Mongoose model conventions, local database setup, and shared API and client types.",
-        logo: "mongodb",
-      },
-      {
-        title: "Better Auth",
-        description:
-          "Email and password authentication, database-backed sessions and rate limiting, plus protected API routes.",
-        logo: "better-auth",
-      },
-      {
-        title: "Zod validation",
-        description:
-          "Reusable schemas validate app configuration, request bodies, query parameters, and route parameters.",
-        logo: "zod",
-      },
-    ],
+    runIn: "A report lands.",
+    body: "Someone pastes it in, or it arrives as the next message in a Discord channel you connected. Either way it reaches the same intake list, with its source and the time it arrived.",
+    evidence: <IntakeListFragment />,
   },
   {
-    title: "Connect your services",
-    description: "Email, files, and the work behind the scenes.",
-    start: 5,
-    features: [
-      {
-        title: "Resend & local email",
-        description:
-          "Send production email with Resend, capture local messages in MailDev, and preview templates with React Email.",
-        logo: "resend",
-      },
-      {
-        title: "Object storage",
-        description:
-          "Private S3-compatible uploads with signed URLs, ownership checks, upload confirmation, and private downloads.",
-        logo: "bucket",
-      },
-      {
-        title: "Reusable middleware",
-        description:
-          "Shared Express middleware handles session checks, request validation, and consistent API errors.",
-        logo: "express",
-      },
-    ],
+    runIn: "Triage writes the candidate.",
+    body: "The text is kept exactly as it was written. Beside it a candidate is created, carrying the source, the reporter and the workspace it belongs to. Nothing is sent anywhere yet.",
+    evidence: <CandidateCardFragment />,
   },
   {
-    title: "Ship and maintain",
-    description: "A path from your laptop to deployment.",
-    start: 8,
-    features: [
-      {
-        title: "Deno Deploy",
-        description:
-          "Build and runtime configuration deploys the React client and Express API together.",
-        logo: "deno",
-      },
-      {
-        title: "Docker & Compose",
-        description:
-          "Compose files provide local MongoDB and storage services, plus a production app and database stack.",
-        logo: "docker",
-      },
-      {
-        title: "Formatting & linting",
-        description:
-          "Shared Oxfmt and Oxlint configuration keeps code formatted and catches common issues across the workspace.",
-        logo: "oxc",
-      },
-      {
-        title: "Unit, integration & end-to-end tests",
-        description:
-          "Vitest unit and API integration tests, Playwright end-to-end tests, and MongoDB-backed CI workflows.",
-        logo: "vitest",
-      },
-      {
-        title: "GitHub Actions",
-        description:
-          "Automated workflows run tests, build the Docker image, and publish the documentation site.",
-        logo: "githubactions",
-      },
-    ],
+    runIn: "You are shown what looks like a duplicate.",
+    body: "Existing candidates in the same workspace are compared with the new one. Likely matches appear with the text they matched and a score, so you can judge the evidence yourself.",
+    evidence: <DuplicateSuggestionFragment />,
   },
-] as const;
+  {
+    runIn: "You decide, and it is recorded.",
+    body: "Approve or reject. The decision, your name and the time are stored inside Triage, and a reviewer can post it to a Discord channel of its own.",
+    evidence: <DecisionLogFragment />,
+  },
+];
 
-function Home() {
+const capabilities = [
+  {
+    title: "Discord intake",
+    body: "Connect a channel and every new message is imported as intake, with its author and the time it was posted. History from before the connection stays where it is.",
+    fragment: <IntakeListFragment />,
+  },
+  {
+    title: "Manual text intake",
+    body: "Paste a report, a forwarded email or a log excerpt. The text is stored verbatim, so the reviewer reads what the reporter actually wrote.",
+    fragment: <CandidateCardFragment />,
+  },
+  {
+    title: "Duplicate suggestions",
+    body: "A new candidate is compared with the ones already in the workspace. Each suggestion shows the candidate it matched, the score, and the matched text as evidence.",
+    fragment: <DuplicateSuggestionFragment />,
+  },
+  {
+    title: "Review and record",
+    body: "Approve or reject from the queue. The decision is recorded against the candidate with the reviewer and the time, so the history stays inside Triage.",
+    fragment: <DecisionLogFragment />,
+  },
+  {
+    title: "Review notifications",
+    body: "Post decisions to a Discord channel you choose, separately from the intake channel, so the people waiting hear the outcome where they already are.",
+    fragment: <NotificationFragment />,
+  },
+  {
+    title: "Workspaces and roles",
+    body: "One workspace per team, with submitter, reviewer and admin roles. An admin decides who joins and what they may do.",
+    fragment: <RoleListFragment />,
+  },
+];
+
+const questions = [
+  {
+    question: "Do we need a Discord server to start?",
+    answer:
+      "No. Reports can be pasted in by hand from the first day, and a channel can be connected whenever the team is ready. Nothing in the review queue depends on it.",
+  },
+  {
+    question: "What exactly is a ticket candidate?",
+    answer:
+      "The report as it arrived, plus the fields a reviewer needs, held in Triage until someone decides. It is not a ticket anywhere else yet, and nothing is sent outward by Triage at this stage.",
+  },
+  {
+    question: "How are duplicate suggestions found?",
+    answer:
+      "A new candidate is compared with the existing candidates in the same workspace. Each suggestion shows the candidate it matched, a score, and the text that matched, so the reviewer judges the evidence rather than a label.",
+  },
+  {
+    question: "Who can approve a candidate?",
+    answer:
+      "Anyone holding the reviewer role in that workspace. The approval is stored with the reviewer's name and the time it happened.",
+  },
+  {
+    question: "Can a submitter approve their own report?",
+    answer:
+      "No. Submitters add intake and candidates and follow their status. Approving and rejecting belong to the reviewer role, which keeps the person who wrote the report out of the decision.",
+  },
+  {
+    question: "What happens to the messages we import from Discord?",
+    answer:
+      "Every new message in the connected channel is imported as intake. Earlier history is not imported, so a channel can be connected part-way through a project without pulling in the past.",
+  },
+  {
+    question: "Where are decisions announced?",
+    answer:
+      "In a Discord channel you choose, kept separate from the intake channel, so the reports arriving and the decisions leaving are never mixed together.",
+  },
+];
+
+function SectionHeading({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <a
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-6 focus:z-10 focus:rounded-md focus:bg-background focus:p-4 focus:outline-2"
-        href="#main"
-      >
-        Skip to content
-      </a>
-      <header className="mx-auto flex max-w-none flex-wrap items-center justify-between gap-x-8 gap-y-2 border-b px-6 py-5 sm:px-10 lg:px-16 xl:px-20">
-        <a className={`${linkStyle} gap-3 font-medium tracking-tight`} href="/">
-          <img
-            src="/launchpad.svg"
-            alt=""
-            width="32"
-            height="32"
-            className="size-8 shrink-0 dark:invert"
-          />
-          <span>{productName}</span>
-          <span className="font-normal text-muted-foreground">
-            MERN starter
-          </span>
-        </a>
-        <nav
-          aria-label="Main navigation"
-          className="flex flex-wrap gap-x-6 text-sm"
-        >
-          <a
-            className={`${linkStyle} min-w-11 justify-center`}
-            href={repository}
-            aria-label="GitHub"
-          >
-            <img
-              src="https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/github.svg"
-              alt=""
-              aria-hidden="true"
-              className="size-5"
-            />
-          </a>
-        </nav>
-      </header>
+    <h2 className={`font-serif text-head text-balance ${className}`}>
+      {children}
+    </h2>
+  );
+}
 
-      <main id="main" tabIndex={-1}>
-        <section className="mx-auto max-w-none px-6 pt-12 pb-16 sm:px-10 sm:pt-16 sm:pb-20 lg:px-16 xl:px-20">
-          <h1 className="max-w-5xl text-4xl leading-[1.12] font-medium tracking-[-0.035em] text-balance sm:text-5xl lg:text-6xl">
-            Build something worth submitting.
-            <span className="mt-1 block text-muted-foreground">
-              Everything you need to get started.
-            </span>
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
-            Launchpad gives you a production grade MERN stack foundation with
-            the setup, services, and decisions documented. Spend your time
-            building your product instead of setting up services.
-          </p>
-          <p className="mt-5 text-sm text-muted-foreground">
-            MongoDB · Express · React · Node.js
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <a className={primaryAction} href={setupGuide}>
-              Documentation
-            </a>
-            <a className={`${linkStyle} text-sm font-medium`} href={repository}>
-              View source
-            </a>
-          </div>
-        </section>
+function Faq() {
+  const [open, setOpen] = useState<string[]>([]);
 
-        <section
-          id="included"
-          aria-labelledby="included-title"
-          className="mx-auto max-w-none scroll-mt-6 px-6 sm:px-10 lg:px-16 xl:px-20"
-        >
-          <div className="border-t pt-8">
-            <h2
-              id="included-title"
-              className="text-2xl font-medium tracking-tight sm:text-3xl"
-            >
-              What's included
-            </h2>
-            <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-              A practical starting point, from interface to deployment. Each
-              guide shows you where to begin and what to configure.
+  return (
+    <div className="mx-auto grid max-w-[92rem] gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
+      <h2 className="font-serif text-head text-balance lg:sticky lg:top-10 lg:self-start">
+        Questions teams ask
+      </h2>
+
+      <div className="flex flex-col gap-2">
+        <Accordion onValueChange={setOpen} value={open}>
+          {questions.map((entry) => {
+            const expanded = open.includes(entry.question);
+            return (
+              <AccordionItem
+                key={entry.question}
+                value={entry.question}
+                variant="tile"
+              >
+                <AccordionTrigger
+                  className="**:data-[slot=accordion-trigger-icon]:hidden"
+                  icon={
+                    expanded ? (
+                      <IconMinus
+                        aria-hidden="true"
+                        className="size-4 shrink-0"
+                      />
+                    ) : (
+                      <IconPlus
+                        aria-hidden="true"
+                        className="size-4 shrink-0"
+                      />
+                    )
+                  }
+                >
+                  {entry.question}
+                </AccordionTrigger>
+                <AccordionContent>
+                  <p className="max-w-[56ch] pb-1 text-primary-foreground/90 text-pretty">
+                    {entry.answer}
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+      </div>
+    </div>
+  );
+}
+
+export function LandingPage() {
+  return (
+    <>
+      <section className="px-5 pt-10 pb-4 sm:px-8 lg:px-16 lg:pt-16 xl:px-20">
+        <div className="mx-auto grid max-w-[92rem] gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <div className="lg:pt-10">
+            <h1 className="font-serif text-display text-balance">
+              <MaskedLines lines={["Every report,", "reviewed."]} />
+            </h1>
+            <p className="mt-6 max-w-[38ch] text-lead text-foreground text-pretty">
+              Reports arrive from Discord or by hand. Triage turns each one into
+              a ticket candidate and waits for a person to decide.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-4">
+              <a
+                className={`inline-flex items-center gap-2 rounded-lg ${primaryButtonClass}`}
+                href={mailtoHref}
+              >
+                Request access
+                <IconArrowNarrowRight aria-hidden="true" className="size-5" />
+              </a>
+              <Link
+                className="inline-flex min-h-12 items-center gap-2 rounded-lg text-body underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                hash="how-it-works"
+                to="/"
+              >
+                See how it works
+              </Link>
+            </div>
+            <p className="mt-8 flex items-center gap-2 text-small text-muted-foreground">
+              <IconBrandDiscord aria-hidden="true" className="size-4" />
+              Discord intake and review notifications are built in.
             </p>
           </div>
-          {chapters.map((chapter) => (
-            <section
-              key={chapter.title}
-              aria-labelledby={`chapter-${chapter.start}`}
-              className="grid gap-8 py-10 sm:py-12 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16"
-            >
-              <div>
-                <h3
-                  id={`chapter-${chapter.start}`}
-                  className="text-lg font-medium tracking-tight"
-                >
-                  {chapter.title}
-                </h3>
-                <p className="mt-2 max-w-60 text-sm leading-6 text-muted-foreground">
-                  {chapter.description}
-                </p>
-              </div>
-              <ol className="divide-y divide-border border-y border-border">
-                {chapter.features.map(({ title, description, logo }, index) => (
-                  <li
-                    key={title}
-                    className="grid gap-3 py-5 md:grid-cols-[minmax(15rem,0.9fr)_minmax(0,1.5fr)] md:items-center md:gap-8 lg:gap-12"
-                  >
-                    <div className="grid min-w-0 grid-cols-[1.5rem_3rem_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[2rem_3.5rem_minmax(0,1fr)] sm:gap-4">
-                      <span
-                        aria-hidden="true"
-                        className="font-mono text-xs text-muted-foreground"
-                      >
-                        {String(chapter.start + index).padStart(2, "0")}
-                      </span>
-                      <div className="flex size-12 items-center justify-center rounded-lg bg-muted p-3 sm:size-14">
-                        {logo ? (
-                          <img
-                            src={externalLogos[logo] ?? `/brands/${logo}.svg`}
-                            alt=""
-                            aria-hidden="true"
-                            className="size-full object-contain"
-                          />
-                        ) : null}
-                      </div>
-                      <h4 className="min-w-0 text-base leading-snug font-medium tracking-tight sm:text-lg">
-                        {title}
-                      </h4>
-                    </div>
-                    <p className="text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
-                      {description}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          ))}
-        </section>
-      </main>
 
-      <footer className="border-t">
-        <div className="mx-auto grid max-w-none gap-8 px-6 py-10 sm:px-10 lg:px-16 xl:px-20">
-          <div className="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-start">
-            <div>
-              <a
-                className={`${linkStyle} gap-3 font-medium tracking-tight`}
-                href="/"
-                aria-label={`${productName} home`}
-              >
-                <img src="/launchpad.svg" alt="" className="size-9" />
-                <span className="text-lg">{productName}</span>
-              </a>
-              <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
-                A complete starter kit for the MERN stack.
-              </p>
+          <Reveal className="lg:pt-4">
+            <ReviewQueueFragment />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="mt-20 sm:mt-28">
+        <CreditedPhoto
+          alt="A marine field telephone operator at a jack field, plugging a cord into the switchboard, circa 1942"
+          className="px-5 sm:px-8 lg:px-16 xl:px-20"
+          credit={switchboardCredit}
+          eager
+          height={800}
+          imageClassName="drift mx-auto h-[38svh] w-full max-w-[92rem] rounded-lg object-cover"
+          src="/media/switchboard-operator-1942.jpg"
+          width={1920}
+        />
+        <div className="px-5 pt-6 sm:px-8 lg:px-16 xl:px-20">
+          <p className="mx-auto max-w-[46rem] text-lead text-foreground text-pretty">
+            Before software, one person held every incoming message and decided
+            where it went. That is the whole job, and Triage is the desk it
+            happens at.
+          </p>
+        </div>
+      </section>
+
+      <section
+        className="mt-24 scroll-mt-6 px-5 sm:mt-32 sm:px-8 lg:px-16 xl:px-20"
+        id="how-it-works"
+      >
+        <div className="mx-auto max-w-[92rem] lg:pl-[26%]">
+          <div className="max-w-[38rem]">
+            <SectionHeading>How a report becomes a ticket</SectionHeading>
+
+            <div className="mt-12 flex flex-col gap-14 sm:mt-14">
+              {stages.map((stage) => (
+                <Reveal key={stage.runIn}>
+                  <p className="max-w-[54ch] text-body text-muted-foreground text-pretty">
+                    <span className="font-medium text-foreground">
+                      {stage.runIn}
+                    </span>{" "}
+                    {stage.body}
+                  </p>
+                  <div className="mt-6">{stage.evidence}</div>
+                </Reveal>
+              ))}
             </div>
-            <nav
-              aria-label="Footer navigation"
-              className="flex flex-col items-start gap-3 text-sm sm:items-end"
-            >
-              <a className={linkStyle} href={docs}>
-                Documentation
-              </a>
-              <a className={linkStyle} href={repository}>
-                GitHub
-              </a>
-            </nav>
-          </div>
-          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t pt-5 text-sm">
-            <p className="text-muted-foreground">© 2026 Abdul Kareem</p>
-            <a className={linkStyle} href={`${repository}/blob/main/LICENSE`}>
-              MIT License
-            </a>
           </div>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      <section className="mt-24 px-5 sm:mt-32 sm:px-8 lg:px-16 xl:px-20">
+        <div className="mx-auto max-w-[92rem]">
+          <SectionHeading>What it does</SectionHeading>
+
+          <div className="mt-10 grid gap-3 sm:gap-4 lg:grid-cols-3">
+            {capabilities.map((capability, index) => (
+              <Reveal
+                className="flex min-h-[26rem] flex-col justify-between gap-6 rounded-lg bg-secondary p-5 sm:p-6"
+                key={capability.title}
+              >
+                <div>
+                  <h3 className="text-body leading-snug font-medium">
+                    {capability.title}
+                  </h3>
+                  <p className="mt-2 max-w-[34ch] text-small leading-relaxed text-muted-foreground">
+                    {capability.body}
+                  </p>
+                </div>
+                <div
+                  className={
+                    index === 1 || index === 3 || index === 5
+                      ? "w-full lg:order-first"
+                      : "w-full"
+                  }
+                >
+                  {capability.fragment}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-24 px-5 sm:mt-32 sm:px-8 lg:px-16 xl:px-20">
+        <div className="mx-auto grid max-w-[92rem] gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
+          <div>
+            <SectionHeading>Who can do what</SectionHeading>
+            <p className="mt-4 max-w-[46ch] text-lead text-foreground text-pretty">
+              Three roles in a shared workspace, each with the actions it may
+              take and nothing else.
+            </p>
+
+            <ul className="mt-10 flex flex-col gap-8">
+              {SAMPLE_ROLES.map((entry) => (
+                <li className="max-w-[42rem]" key={entry.role}>
+                  <h3 className="font-serif text-lead font-semibold">
+                    {entry.role}
+                  </h3>
+                  <p className="mt-1.5 max-w-[48ch] text-body text-muted-foreground text-pretty">
+                    {entry.summary}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <CreditedPhoto
+              alt="A 1940s telephone exchange: a wooden cabinet of labelled keys for night extension, hold and ring"
+              className="w-full"
+              credit={exchangeCredit}
+              height={1050}
+              imageClassName="h-auto w-full rounded-lg object-cover"
+              src="/media/telephone-exchange-1940s.jpg"
+              width={1400}
+            />
+            <CreditedPhoto
+              alt="A library card index: rows of wooden drawers with brass labels, one left open"
+              className="w-full"
+              credit={cardIndexCredit}
+              height={900}
+              imageClassName="h-auto w-full rounded-lg object-cover"
+              src="/media/card-index-drawers.jpg"
+              width={1200}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-24 px-5 sm:mt-32 sm:px-8 lg:px-16 xl:px-20">
+        <Faq />
+      </section>
+
+      <section className="mt-24 sm:mt-32">
+        <div className="bg-primary px-5 py-20 text-primary-foreground sm:px-8 lg:px-16 lg:py-28 xl:px-20">
+          <div className="mx-auto grid max-w-[92rem] gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-end lg:gap-16">
+            <div>
+              <h2 className="font-serif text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.03em] text-balance">
+                Start with one channel
+              </h2>
+              <p className="mt-6 max-w-[38ch] text-lead text-primary-foreground/90 text-pretty">
+                Name a workspace, choose the role you would join with, and the
+                request email is written for you. There is no form on this page
+                and nothing is stored.
+              </p>
+            </div>
+
+            <Reveal className="lg:justify-self-end">
+              <WorkspaceDialogFragment />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

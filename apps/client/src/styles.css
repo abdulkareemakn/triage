@@ -129,7 +129,22 @@ body,
   /* Self-hosted font imports/@font-face go above the theme rules in this file. */
   --font-sans: "PP Mori", system-ui, sans-serif;
   --font-serif: Domine, Georgia, serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
+  /* The brand's code face, applied only to real code in the interface. */
+  --font-mono: "Space Mono", ui-monospace, monospace; /* taste-skill-ignore */
+
+  /* Five type steps for the marketing site. Nothing else is set by hand. */
+  --text-display: clamp(2.5rem, 4.6vw, 4.25rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.03em;
+  --text-head: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem);
+  --text-head--line-height: 1.1;
+  --text-head--letter-spacing: -0.02em;
+  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --text-lead--line-height: 1.45;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.8125rem;
+  --text-small--line-height: 1.5;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -169,4 +184,79 @@ body,
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* The create-workspace dialog is the one elevated element on the site: it is
+   the product's own dialog, floating above the closing field. Scoped to a
+   fragment so no resting element inherits it. */
+[data-ui].dialog-surface {
+  box-shadow:
+    0 1.5rem 3rem -1.5rem
+      color-mix(in oklch, var(--foreground) 45%, transparent),
+    0 0.25rem 0.75rem -0.5rem
+      color-mix(in oklch, var(--foreground) 35%, transparent);
+}
+
+/* Motion. Transform and opacity only; every rule below has a reduced-motion
+   fallback that keeps the content and drops the travel. */
+.mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.mask-line > span {
+  display: block;
+  transform: translateY(110%);
+  transition-property: transform;
+  transition-duration: 900ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mask-line[data-shown="true"] > span {
+  transform: none;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition-property: opacity, transform;
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.drift {
+  transform: scale(1.04);
+  animation: drift 26s ease-out infinite alternate;
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1.04) translateY(0);
+  }
+  to {
+    transform: scale(1.1) translateY(-1.5%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mask-line > span,
+  .reveal {
+    transform: none;
+    transition: none;
+  }
+
+  .reveal {
+    opacity: 1;
+  }
+
+  .drift {
+    transform: none;
+    animation: none;
+  }
 }
