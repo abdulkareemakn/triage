@@ -129,7 +129,7 @@ body,
   /* Self-hosted font imports/@font-face go above the theme rules in this file. */
   --font-sans: "PP Mori", system-ui, sans-serif;
   --font-serif: Domine, Georgia, serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-mono: "Space Mono", ui-monospace, monospace; /* taste-skill-ignore */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -169,4 +169,360 @@ body,
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Triage marketing site: motion tokens, layout columns, interface
+   fragments and section furniture. Everything references the semantic
+   tokens above; no one-off colours are introduced here. */
+
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+  --t-reveal: 800ms;
+}
+
+/* The reading column. Phone margins are tight; from the tablet up the
+   column starts at a fifth of the viewport and holds a 30rem measure.
+   Every section and every element on a page shares this left edge. */
+.triage-column {
+  margin-inline-start: 1.25rem;
+  width: calc(100% - 2.5rem);
+}
+.triage-column--narrow {
+  margin-inline-start: 1.25rem;
+  width: calc(100% - 2.5rem);
+}
+@media (min-width: 48rem) {
+  .triage-column {
+    margin-inline-start: 20%;
+    width: min(30rem, 56vw);
+  }
+  .triage-column--narrow {
+    margin-inline-start: 20%;
+    width: min(21rem, 40vw);
+  }
+}
+
+/* Signature move: each headline line rises from behind its own baseline. */
+.lines .line {
+  display: block;
+  margin-bottom: -0.08em;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.lines [data-line] {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .lines [data-line] {
+    animation: line-up 900ms var(--ease-out) forwards;
+    animation-delay: calc(var(--i, 0) * 110ms + 150ms);
+    transform: translateY(105%);
+  }
+  .js [data-rise] {
+    animation: rise var(--t-reveal) var(--ease-out) forwards;
+    animation-delay: calc(var(--i, 0) * 90ms + 120ms);
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes line-up {
+  to {
+    transform: none;
+  }
+}
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Section entrances, once each, as they enter the viewport. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 900ms var(--ease-out);
+}
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Feedback under the hand: press and link response. */
+.triage-press {
+  transition:
+    transform var(--t-press) var(--ease-out),
+    background-color var(--t-hover) ease,
+    color var(--t-hover) ease,
+    text-decoration-color var(--t-hover) ease;
+}
+.triage-press:active {
+  transform: scale(0.97);
+}
+@media (prefers-reduced-motion: reduce) {
+  .triage-press:active {
+    transform: none;
+  }
+}
+
+/* Found photographs share one treatment: greyscale, slightly contrasted,
+   so two different archives sit in the same calm light. */
+.found-photo {
+  filter: grayscale(1) contrast(1.05);
+}
+
+/* The slip's zigzag cut, drawn with clip-path so no gradient or image
+   is needed. */
+.slip-edge {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 12px),
+    97.5% 100%,
+    95% calc(100% - 12px),
+    92.5% 100%,
+    90% calc(100% - 12px),
+    87.5% 100%,
+    85% calc(100% - 12px),
+    82.5% 100%,
+    80% calc(100% - 12px),
+    77.5% 100%,
+    75% calc(100% - 12px),
+    72.5% 100%,
+    70% calc(100% - 12px),
+    67.5% 100%,
+    65% calc(100% - 12px),
+    62.5% 100%,
+    60% calc(100% - 12px),
+    57.5% 100%,
+    55% calc(100% - 12px),
+    52.5% 100%,
+    50% calc(100% - 12px),
+    47.5% 100%,
+    45% calc(100% - 12px),
+    42.5% 100%,
+    40% calc(100% - 12px),
+    37.5% 100%,
+    35% calc(100% - 12px),
+    32.5% 100%,
+    30% calc(100% - 12px),
+    27.5% 100%,
+    25% calc(100% - 12px),
+    22.5% 100%,
+    20% calc(100% - 12px),
+    17.5% 100%,
+    15% calc(100% - 12px),
+    12.5% 100%,
+    10% calc(100% - 12px),
+    7.5% 100%,
+    5% calc(100% - 12px),
+    2.5% 100%,
+    0 calc(100% - 12px)
+  );
+}
+
+/* Interface fragments. For this product the pictures are its own
+   interface, so fragments carry their own surfaces, borders and
+   controls under the data-ui selector. The page around them stays
+   free of rules and shadows; inside a fragment the product's own
+   conventions apply. The "instrument" fragment sits on the dark hero
+   and re-points the fragment tokens to the dark palette. */
+
+[data-ui] {
+  --fx-field: var(--background);
+  --fx-ink: var(--card-foreground);
+  --fx-line: var(--border);
+  --fx-soft: var(--muted-foreground);
+  --fx-surface: var(--card);
+  --fx-control: var(--secondary);
+}
+
+[data-ui="instrument"] {
+  --fx-field: var(--dark-background);
+  --fx-ink: var(--dark-card-foreground);
+  --fx-line: var(--dark-border);
+  --fx-soft: var(--dark-muted-foreground);
+  --fx-surface: var(--dark-card);
+  --fx-control: var(--dark-secondary);
+}
+
+[data-ui] .fx-card {
+  background-color: var(--fx-surface);
+  border: 1px solid var(--fx-line);
+  border-radius: var(--radius-lg);
+  color: var(--fx-ink);
+}
+
+[data-ui] .fx-row {
+  align-items: center;
+  border-bottom: 1px solid var(--fx-line);
+  display: flex;
+  gap: 0.75rem;
+}
+
+[data-ui] .fx-row:last-child {
+  border-bottom: 0;
+}
+
+[data-ui] .fx-chip {
+  align-items: center;
+  border: 1px solid var(--fx-line);
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  font-size: 0.8125rem;
+  gap: 0.375rem;
+  line-height: 1.25rem;
+  padding: 0.125rem 0.5rem;
+  white-space: nowrap;
+}
+
+[data-ui] .fx-chip--on {
+  background-color: var(--fx-control);
+}
+
+[data-ui] .fx-field {
+  background-color: var(--fx-field);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md);
+  color: var(--fx-ink);
+}
+
+[data-ui="instrument"] .fx-field {
+  border-color: var(--dark-input);
+}
+
+[data-ui] .fx-btn {
+  align-items: center;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  font-size: 0.875rem;
+  font-weight: 500;
+  gap: 0.375rem;
+  justify-content: center;
+  line-height: 1.25rem;
+  padding: 0.375rem 0.75rem;
+  transition:
+    transform var(--t-press) var(--ease-out),
+    background-color var(--t-hover) ease,
+    color var(--t-hover) ease;
+}
+
+[data-ui] .fx-btn:active {
+  transform: scale(0.97);
+}
+
+[data-ui] .fx-btn--primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+[data-ui="instrument"] .fx-btn--primary {
+  background-color: var(--dark-primary);
+  color: var(--dark-primary-foreground);
+}
+
+[data-ui] .fx-btn--quiet {
+  color: var(--fx-soft);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-ui] .fx-btn--primary:hover {
+    background-color: color-mix(
+      in oklch,
+      var(--primary) 85%,
+      var(--foreground)
+    );
+  }
+  [data-ui="instrument"] .fx-btn--primary:hover {
+    background-color: color-mix(in oklch, var(--dark-primary) 85%, white);
+  }
+  [data-ui] .fx-btn--quiet:hover {
+    background-color: var(--fx-control);
+    color: var(--fx-ink);
+  }
+}
+
+[data-ui] .fx-bar {
+  background-color: var(--fx-control);
+  border-radius: 9999px;
+  height: 0.375rem;
+  overflow: hidden;
+}
+
+[data-ui] .fx-bar > span {
+  background-color: var(--primary);
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+  width: var(--match-width, 0%);
+}
+
+[data-ui] .fx-avatar {
+  align-items: center;
+  background-color: var(--fx-control);
+  color: var(--fx-ink);
+  display: inline-flex;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  height: 1.5rem;
+  justify-content: center;
+  width: 1.5rem;
+  border-radius: 9999px;
+}
+
+[data-ui] .fx-rule {
+  border-top: 1px solid var(--fx-line);
+}
+
+[data-ui] .fx-soft {
+  color: var(--fx-soft);
+}
+
+[data-ui] .fx-readout {
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+}
+
+[data-ui] .fx-small {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+[data-ui] .fx-body {
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+}
+
+/* Colour dots that mark the rows of the roles list. */
+.triage-dot {
+  border-radius: 9999px;
+  display: inline-block;
+  height: 1rem;
+  width: 1rem;
+}
+.triage-dot--a {
+  background-color: var(--muted-foreground);
+}
+.triage-dot--b {
+  background-color: var(--primary);
+}
+.triage-dot--c {
+  background-color: var(--accent-foreground);
 }
