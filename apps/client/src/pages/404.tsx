@@ -17,7 +17,7 @@ import {
  */
 export function NotFoundPage() {
   return (
-    <main className="mx-auto flex min-h-svh max-w-lg items-center px-4 py-12">
+    <div className="mx-auto flex min-h-svh max-w-lg items-center px-4 py-12">
       <Card className="w-full text-center">
         <CardHeader>
           <p className="text-sm font-medium text-muted-foreground">404</p>
@@ -39,6 +39,6 @@ export function NotFoundPage() {
           </Link>
         </CardFooter>
       </Card>
-    </main>
+    </div>
   );
 }
