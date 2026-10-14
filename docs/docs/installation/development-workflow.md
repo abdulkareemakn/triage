@@ -137,6 +137,65 @@ return `503`. If any is supplied, all five must be nonempty or startup fails.
 Restart the API after changing configuration. Never prefix storage credentials with
 `VITE_` or send them to clients.
 
+### Discord demo setup
+
+The Discord connector is not implemented yet. For the demo, create or select a
+server named **Triage Demo** and create two private text channels:
+
+- `#triage-intake` for messages imported into Triage.
+- `#triage-notifications` for review decision notifications.
+
+In the [Discord Developer Portal](https://discord.com/developers/applications),
+create an application named **Triage Demo**, add its bot, and enable the Message
+Content privileged intent. Message Content is required to read message text, and
+a bot token is required to receive message events at all. Discord requires
+approval for this intent only for verified apps in 100 or more servers, so a
+single demo server needs no review. Keep the token private and rotate it if it is
+exposed.
+
+Invite the bot to the demo server only. Use the
+[permissions calculator](https://discord.com/developers/applications/resources/permissions)
+or the per-channel permission overwrites to grant the least access each channel
+needs. Do not grant Administrator.
+
+| Channel                 | Permissions                                       | Used for                 |
+| ----------------------- | ------------------------------------------------- | ------------------------ |
+| `#triage-intake`        | View Channel, Read Message History                | importing new messages   |
+| `#triage-notifications` | View Channel, Send Messages, Read Message History | posting review decisions |
+
+Add Embed Links to `#triage-notifications` as well if notifications are sent as
+rich embeds. A bot without Send Messages silently fails to post.
+
+The bot posts to both channels. A [webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
+can post but cannot read channel history, so it can deliver notifications and
+can never import messages. One bot token therefore covers both directions, and
+no webhook is needed for the demo.
+
+Copy each channel ID rather than its name. Enable Developer Mode in Discord user
+settings, then right-click the channel and choose Copy Channel ID. Channel IDs are
+unique on their own, so the server ID is not required.
+
+Store the values in the private root `.env`, or in deployment secret settings if
+the bot runs somewhere other than your machine, using the names in
+`.env.example`: `DISCORD_BOT_TOKEN`, `DISCORD_SOURCE_CHANNEL_ID`, and
+`DISCORD_NOTIFICATION_CHANNEL_ID`. These names are reserved for the demo connector
+and are not read by the current server configuration. Never put their values in
+source control, Kaneo, or client-visible `VITE_` variables.
+
+Verify both directions before relying on the setup: the bot appears online in the
+server member list, a new message in `#triage-intake` produces a gateway message
+event, and a post to `#triage-notifications` arrives in the channel.
+
+Where the bot runs during the demonstration is still an open product decision. It
+affects only where these three values are stored, not the Discord setup itself.
+The Discord server, application, bot, intent, channel access, and the live message
+test still need to be completed by a maintainer with Discord account access.
+
+Discord references: [Create a server](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server),
+[privileged intents](https://support-dev.discord.com/hc/en-us/articles/6207308062871-What-are-Privileged-Intents),
+[bot permissions](https://discord.com/developers/topics/permissions), and
+[webhooks](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks).
+
 The following policy settings already have defaults:
 
 | Variable                     | Default                                           | Accepted values                                                                 |
