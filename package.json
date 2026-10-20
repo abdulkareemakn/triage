@@ -6,6 +6,7 @@
     "dev": "pnpm --parallel --filter @mern/server --filter @mern/mail dev",
     "dev:ui": "pnpm --filter @mern/client dev",
     "dev:mail": "pnpm --filter @mern/emails dev",
+    "design-wall": "node tools/design-gallery/serve.mjs",
     "build": "pnpm -r build",
     "start": "pnpm --filter @mern/server start",
     "typecheck": "pnpm -r typecheck",

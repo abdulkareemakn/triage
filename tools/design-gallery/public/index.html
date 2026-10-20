@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Triage design wall</title>
+    <link rel="stylesheet" href="/gallery.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-copy">
+          <strong>Triage design wall</strong>
+          <small>Six isolated frontends · same DESIGN.md tokens</small>
+        </span>
+      </div>
+
+      <div class="topbar-center">
+        <span class="eyebrow">Comparing</span>
+        <span id="topbar-model">Loading…</span>
+      </div>
+
+      <div class="topbar-actions">
+        <div
+          class="segmented"
+          id="mode-switch"
+          role="group"
+          aria-label="View mode"
+        >
+          <button type="button" data-mode="single" aria-pressed="true">
+            Single
+          </button>
+          <button type="button" data-mode="compare" aria-pressed="false">
+            Compare
+          </button>
+        </div>
+        <button type="button" class="button primary" id="copy-shortlist">
+          Copy shortlist
+        </button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="rail" aria-label="Models">
+        <div class="rail-heading">
+          <span>Models</span>
+          <button type="button" class="text-button" id="clear-shortlist">
+            Clear picks
+          </button>
+        </div>
+        <div class="model-list" id="model-list"></div>
+        <div class="rail-foot">
+          <p>
+            All six share the same palette and type. Compare composition,
+            motion, and the product fragments embedded in the pages.
+          </p>
+          <p class="rail-foot-note">
+            None of these is a finished product workspace. They are marketing
+            explorations with interactive fragments.
+          </p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="single-view" id="single-view">
+          <div class="toolbar">
+            <div
+              class="segmented"
+              id="route-switch"
+              role="group"
+              aria-label="Route"
+            ></div>
+            <div class="spacer"></div>
+            <div
+              class="segmented"
+              id="viewport-switch"
+              role="group"
+              aria-label="Viewport"
+            ></div>
+            <button type="button" class="button" id="reload">Reload</button>
+            <a
+              class="button"
+              id="open-tab"
+              href="#"
+              target="_blank"
+              rel="noreferrer"
+              >Open</a
+            >
+          </div>
+
+          <div class="stage" id="stage">
+            <div class="frame-slot" id="frame-slot">
+              <div class="frame-shell" id="frame-shell">
+                <iframe id="frame" title="Model preview"></iframe>
+              </div>
+            </div>
+            <div class="stage-overlay" id="stage-overlay" hidden>
+              <div class="stage-overlay-card">
+                <span class="status-dot" id="overlay-dot"></span>
+                <p id="overlay-message">Starting model…</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="statusline">
+            <span class="status-dot" id="statusline-dot"></span>
+            <span id="statusline-text">Loading…</span>
+            <span class="statusline-spacer"></span>
+            <code id="statusline-url"></code>
+          </div>
+        </section>
+
+        <section class="compare-view" id="compare-view" hidden>
+          <div class="compare-grid" id="compare-grid"></div>
+        </section>
+      </main>
+
+      <aside
+        class="inspector"
+        id="inspector"
+        aria-label="Model details"
+      ></aside>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/gallery.js"></script>
+  </body>
+</html>
