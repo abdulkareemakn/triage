@@ -22,7 +22,7 @@ export function SiteFooter() {
       <div className="px-6 pt-20 pb-10 sm:px-10 sm:pt-28 lg:px-16 xl:px-20">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-6">
           <h2 className="text-[clamp(40px,5.6vw,88px)] leading-[0.95] font-semibold tracking-[-0.03em] text-balance lg:col-span-7">
-            Your Triage awaits.
+            From report to decision.
           </h2>
           <div className="lg:col-span-5 lg:col-start-8 lg:self-end">
             <p className="max-w-[440px] text-base leading-7 text-muted-foreground">
@@ -40,15 +40,6 @@ export function SiteFooter() {
             <p>
               Triage is a university project. Incoming reports become ticket
               candidates; a person decides what becomes work.
-            </p>
-            <p className="mt-4">
-              Archival photographs: &ldquo;General Post Office mail sorting
-              room, Wellington c.1900s&rdquo; by Archives New Zealand, CC BY-SA
-              2.0, via Wikimedia Commons &middot; &ldquo;Mail receiving sorting
-              room, U.S&rdquo; by Library of Congress, CC0, via rawpixel
-              &middot; &ldquo;Denges-Triage-Bosse2&rdquo; by MHM55, CC BY-SA
-              4.0, via Wikimedia Commons. Photographs show the world around the
-              subject; they are not Triage&rsquo;s own product.
             </p>
           </div>
 

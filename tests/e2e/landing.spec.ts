@@ -16,7 +16,7 @@ test("introduces Triage and collects waitlist emails", async ({ page }) => {
 
   const footer = page.locator("footer");
   await expect(
-    footer.getByRole("heading", { name: "Your Triage awaits." }),
+    footer.getByRole("heading", { name: "From report to decision." }),
   ).toBeVisible();
   await footer
     .getByLabel("Email address")
