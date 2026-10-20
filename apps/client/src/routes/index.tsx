@@ -1,301 +1,513 @@
+import {
+  IconArrowRight,
+  IconCheck,
+  IconMessage,
+  IconCopy,
+  IconShield,
+  IconUsers,
+  IconBell,
+} from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
-import { buttonVariants } from "@/components/ui/button";
+import { TriageBoard } from "@/components/triage-board";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({ component: Home });
 
-const repository = "https://github.com/abdulkareemakn/mern-app-starter";
-const docs = "https://mern-app-starter.pages.dev";
-const setupGuide = `${docs}/installation/`;
-const productName = "Launchpad";
-const externalLogos: Record<string, string> = {
-  react: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/react.svg",
-  bucket: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/backblaze.svg",
-  "better-auth":
-    "https://raw.githubusercontent.com/better-auth/better-auth/v1.7.5/docs/public/branding/svg/better-auth-mark-bg-light.svg",
-  oxc: "https://cdn.jsdelivr.net/gh/oxc-project/oxc-assets@main/icon-flat-light.svg",
-  vitest: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/vitest.svg",
-};
-const linkStyle =
-  "inline-flex min-h-11 items-center underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground";
-const primaryAction = buttonVariants({
-  size: "lg",
-  className:
-    "min-h-11 px-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground motion-reduce:transition-none motion-reduce:active:translate-y-0",
-});
-
-const chapters = [
-  {
-    title: "Build the application",
-    description: "The foundations for your first feature.",
-    start: 1,
-    features: [
-      {
-        title: "shadcn/ui & design-md",
-        description:
-          "Base UI components, Tailwind styling, and a documented design system for shaping your interface.",
-        logo: "react",
-      },
-      {
-        title: "MongoDB & Mongoose",
-        description:
-          "A shared MongoDB connection, Mongoose model conventions, local database setup, and shared API and client types.",
-        logo: "mongodb",
-      },
-      {
-        title: "Better Auth",
-        description:
-          "Email and password authentication, database-backed sessions and rate limiting, plus protected API routes.",
-        logo: "better-auth",
-      },
-      {
-        title: "Zod validation",
-        description:
-          "Reusable schemas validate app configuration, request bodies, query parameters, and route parameters.",
-        logo: "zod",
-      },
-    ],
-  },
-  {
-    title: "Connect your services",
-    description: "Email, files, and the work behind the scenes.",
-    start: 5,
-    features: [
-      {
-        title: "Resend & local email",
-        description:
-          "Send production email with Resend, capture local messages in MailDev, and preview templates with React Email.",
-        logo: "resend",
-      },
-      {
-        title: "Object storage",
-        description:
-          "Private S3-compatible uploads with signed URLs, ownership checks, upload confirmation, and private downloads.",
-        logo: "bucket",
-      },
-      {
-        title: "Reusable middleware",
-        description:
-          "Shared Express middleware handles session checks, request validation, and consistent API errors.",
-        logo: "express",
-      },
-    ],
-  },
-  {
-    title: "Ship and maintain",
-    description: "A path from your laptop to deployment.",
-    start: 8,
-    features: [
-      {
-        title: "Deno Deploy",
-        description:
-          "Build and runtime configuration deploys the React client and Express API together.",
-        logo: "deno",
-      },
-      {
-        title: "Docker & Compose",
-        description:
-          "Compose files provide local MongoDB and storage services, plus a production app and database stack.",
-        logo: "docker",
-      },
-      {
-        title: "Formatting & linting",
-        description:
-          "Shared Oxfmt and Oxlint configuration keeps code formatted and catches common issues across the workspace.",
-        logo: "oxc",
-      },
-      {
-        title: "Unit, integration & end-to-end tests",
-        description:
-          "Vitest unit and API integration tests, Playwright end-to-end tests, and MongoDB-backed CI workflows.",
-        logo: "vitest",
-      },
-      {
-        title: "GitHub Actions",
-        description:
-          "Automated workflows run tests, build the Docker image, and publish the documentation site.",
-        logo: "githubactions",
-      },
-    ],
-  },
-] as const;
-
 function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <a
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-6 focus:z-10 focus:rounded-md focus:bg-background focus:p-4 focus:outline-2"
-        href="#main"
-      >
-        Skip to content
-      </a>
-      <header className="mx-auto flex max-w-none flex-wrap items-center justify-between gap-x-8 gap-y-2 border-b px-6 py-5 sm:px-10 lg:px-16 xl:px-20">
-        <a className={`${linkStyle} gap-3 font-medium tracking-tight`} href="/">
-          <img
-            src="/launchpad.svg"
-            alt=""
-            width="32"
-            height="32"
-            className="size-8 shrink-0 dark:invert"
-          />
-          <span>{productName}</span>
-          <span className="font-normal text-muted-foreground">
-            MERN starter
-          </span>
-        </a>
-        <nav
-          aria-label="Main navigation"
-          className="flex flex-wrap gap-x-6 text-sm"
-        >
-          <a
-            className={`${linkStyle} min-w-11 justify-center`}
-            href={repository}
-            aria-label="GitHub"
-          >
-            <img
-              src="https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/github.svg"
-              alt=""
-              aria-hidden="true"
-              className="size-5"
-            />
-          </a>
-        </nav>
-      </header>
+    <>
+      <Hero />
+      <Showcase />
+      <HowItWorks />
+      <Features />
+      <FAQ />
+      <CTA />
+    </>
+  );
+}
 
-      <main id="main" tabIndex={-1}>
-        <section className="mx-auto max-w-none px-6 pt-12 pb-16 sm:px-10 sm:pt-16 sm:pb-20 lg:px-16 xl:px-20">
-          <h1 className="max-w-5xl text-4xl leading-[1.12] font-medium tracking-[-0.035em] text-balance sm:text-5xl lg:text-6xl">
-            Build something worth submitting.
-            <span className="mt-1 block text-muted-foreground">
-              Everything you need to get started.
-            </span>
+/* ---------------------------------- Hero ---------------------------------- */
+
+function Hero() {
+  return (
+    <section className="relative min-h-svh overflow-hidden">
+      {/* Giant circle motif */}
+      <div
+        aria-hidden="true"
+        className="absolute top-[20vh] right-[-20vh] size-[120vh] rounded-full bg-accent"
+      />
+
+      <div className="relative z-10 flex min-h-svh items-center">
+        <div className="mx-auto w-full max-w-none px-6 sm:px-10 lg:px-16 xl:px-20">
+          <h1 className="max-w-5xl text-[clamp(64px,6.4vw,100px)] leading-[0.95] font-semibold tracking-[-0.03em] text-balance">
+            Every report,
+            <br />
+            reviewed.
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
-            Launchpad gives you a production grade MERN stack foundation with
-            the setup, services, and decisions documented. Spend your time
-            building your product instead of setting up services.
+          <p className="mt-6 max-w-xl text-lg leading-7 text-muted-foreground">
+            A calm workspace that turns incoming reports into reviewable ticket
+            candidates.
           </p>
-          <p className="mt-5 text-sm text-muted-foreground">
-            MongoDB · Express · React · Node.js
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <a className={primaryAction} href={setupGuide}>
-              Documentation
+          <div className="mt-8 flex flex-wrap items-center gap-6">
+            <a
+              href="mailto:hello@triage.app?subject=Contact%20from%20website"
+              className={buttonVariants({ size: "lg", className: "min-h-11" })}
+            >
+              Contact us
+              <IconArrowRight className="size-4" />
             </a>
-            <a className={`${linkStyle} text-sm font-medium`} href={repository}>
-              View source
-            </a>
-          </div>
-        </section>
-
-        <section
-          id="included"
-          aria-labelledby="included-title"
-          className="mx-auto max-w-none scroll-mt-6 px-6 sm:px-10 lg:px-16 xl:px-20"
-        >
-          <div className="border-t pt-8">
-            <h2
-              id="included-title"
-              className="text-2xl font-medium tracking-tight sm:text-3xl"
+            <a
+              href="#how-it-works"
+              className={buttonVariants({
+                variant: "outline",
+                size: "lg",
+                className: "min-h-11",
+              })}
             >
-              What's included
-            </h2>
-            <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-              A practical starting point, from interface to deployment. Each
-              guide shows you where to begin and what to configure.
-            </p>
-          </div>
-          {chapters.map((chapter) => (
-            <section
-              key={chapter.title}
-              aria-labelledby={`chapter-${chapter.start}`}
-              className="grid gap-8 py-10 sm:py-12 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16"
-            >
-              <div>
-                <h3
-                  id={`chapter-${chapter.start}`}
-                  className="text-lg font-medium tracking-tight"
-                >
-                  {chapter.title}
-                </h3>
-                <p className="mt-2 max-w-60 text-sm leading-6 text-muted-foreground">
-                  {chapter.description}
-                </p>
-              </div>
-              <ol className="divide-y divide-border border-y border-border">
-                {chapter.features.map(({ title, description, logo }, index) => (
-                  <li
-                    key={title}
-                    className="grid gap-3 py-5 md:grid-cols-[minmax(15rem,0.9fr)_minmax(0,1.5fr)] md:items-center md:gap-8 lg:gap-12"
-                  >
-                    <div className="grid min-w-0 grid-cols-[1.5rem_3rem_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[2rem_3.5rem_minmax(0,1fr)] sm:gap-4">
-                      <span
-                        aria-hidden="true"
-                        className="font-mono text-xs text-muted-foreground"
-                      >
-                        {String(chapter.start + index).padStart(2, "0")}
-                      </span>
-                      <div className="flex size-12 items-center justify-center rounded-lg bg-muted p-3 sm:size-14">
-                        {logo ? (
-                          <img
-                            src={externalLogos[logo] ?? `/brands/${logo}.svg`}
-                            alt=""
-                            aria-hidden="true"
-                            className="size-full object-contain"
-                          />
-                        ) : null}
-                      </div>
-                      <h4 className="min-w-0 text-base leading-snug font-medium tracking-tight sm:text-lg">
-                        {title}
-                      </h4>
-                    </div>
-                    <p className="text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
-                      {description}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          ))}
-        </section>
-      </main>
-
-      <footer className="border-t">
-        <div className="mx-auto grid max-w-none gap-8 px-6 py-10 sm:px-10 lg:px-16 xl:px-20">
-          <div className="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-start">
-            <div>
-              <a
-                className={`${linkStyle} gap-3 font-medium tracking-tight`}
-                href="/"
-                aria-label={`${productName} home`}
-              >
-                <img src="/launchpad.svg" alt="" className="size-9" />
-                <span className="text-lg">{productName}</span>
-              </a>
-              <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
-                A complete starter kit for the MERN stack.
-              </p>
-            </div>
-            <nav
-              aria-label="Footer navigation"
-              className="flex flex-col items-start gap-3 text-sm sm:items-end"
-            >
-              <a className={linkStyle} href={docs}>
-                Documentation
-              </a>
-              <a className={linkStyle} href={repository}>
-                GitHub
-              </a>
-            </nav>
-          </div>
-          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t pt-5 text-sm">
-            <p className="text-muted-foreground">© 2026 Abdul Kareem</p>
-            <a className={linkStyle} href={`${repository}/blob/main/LICENSE`}>
-              MIT License
+              See how it works
             </a>
           </div>
         </div>
-      </footer>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------- Showcase -------------------------------- */
+
+function Showcase() {
+  const [activeStage, setActiveStage] = useState(0);
+  const stages = [
+    { name: "Intake", label: "Intake" },
+    { name: "Candidate", label: "Candidate" },
+    { name: "Review", label: "Review" },
+    { name: "Decision", label: "Decision" },
+  ];
+
+  return (
+    <section className="relative py-24 sm:py-32">
+      <div className="mx-auto max-w-none px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="grid items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-20">
+          {/* Stage list */}
+          <div className="order-2 lg:order-1">
+            <p className="text-[clamp(28px,2.9vw,44px)] leading-[1.15] font-medium tracking-tight text-muted-foreground">
+              How a report
+              <br />
+              becomes a candidate
+            </p>
+            <div className="mt-8 flex flex-col">
+              {stages.map((stage, i) => (
+                <button
+                  key={stage.name}
+                  onClick={() => setActiveStage(i)}
+                  className={cn(
+                    "text-left text-[clamp(28px,2.9vw,44px)] leading-[1.15] font-medium tracking-tight transition-colors",
+                    activeStage === i
+                      ? "text-foreground"
+                      : "text-muted-foreground/40 hover:text-muted-foreground/70",
+                  )}
+                >
+                  {stage.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Disc with triage board */}
+          <div className="order-1 lg:order-2">
+            <div className="relative flex items-center justify-center">
+              <div
+                aria-hidden="true"
+                className="absolute size-[64vh] rounded-full bg-accent"
+              />
+              <div className="relative z-10 w-full max-w-md">
+                <TriageBoard />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------- How it works ------------------------------ */
+
+function HowItWorks() {
+  const fields = [
+    {
+      bg: "bg-background",
+      text: "text-foreground",
+      clause: "First it lands here.",
+      description: "A report arrives from Discord, email, or manual intake.",
+      card: <IntakeCard />,
+    },
+    {
+      bg: "bg-accent",
+      text: "text-accent-foreground",
+      clause: "Then someone takes it.",
+      description: "A submitter creates a ticket candidate from the report.",
+      card: <CandidateCard />,
+    },
+    {
+      bg: "bg-primary",
+      text: "text-primary-foreground",
+      clause: "A person reviews it.",
+      description: "A reviewer examines the candidate and its evidence.",
+      card: <ReviewCard />,
+    },
+    {
+      bg: "bg-foreground",
+      text: "text-background",
+      clause: "Then it is decided.",
+      description:
+        "The reviewer approves or rejects. The decision is recorded.",
+      card: <DecisionCard />,
+    },
+  ];
+
+  return (
+    <section id="how-it-works" className="scroll-mt-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4">
+        {fields.map((field) => (
+          <div
+            key={field.clause}
+            className={cn(
+              "flex min-h-[84svh] flex-col justify-between p-8",
+              field.bg,
+              field.text,
+            )}
+          >
+            <div className="text-[clamp(22px,2vw,32px)] leading-[1.2] font-semibold tracking-tight">
+              {field.clause}
+            </div>
+            <div className="my-8 flex flex-1 items-center justify-center">
+              {field.card}
+            </div>
+            <p className="text-sm leading-6 opacity-70">{field.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function IntakeCard() {
+  return (
+    <div
+      data-ui
+      className="w-full max-w-[260px] rounded-lg border border-border bg-card p-4 text-left shadow-sm"
+    >
+      <div className="text-xs font-medium text-muted-foreground">Report</div>
+      <div className="mt-1 text-sm font-medium">Login button unresponsive</div>
+      <div className="mt-1 text-xs text-muted-foreground">
+        From Discord #support
+      </div>
     </div>
+  );
+}
+
+function CandidateCard() {
+  return (
+    <div
+      data-ui
+      className="w-full max-w-[260px] rounded-lg border border-border bg-card p-4 text-left shadow-sm"
+    >
+      <div className="flex items-center justify-between">
+        <div className="text-xs font-medium text-muted-foreground">
+          Candidate
+        </div>
+        <div className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+          Open
+        </div>
+      </div>
+      <div className="mt-1 text-sm font-medium">Fix login button on mobile</div>
+      <div className="mt-2 flex items-center text-xs text-muted-foreground">
+        <IconUsers className="size-3" />
+        <span>Assigned to reviewer@triage.app</span>
+      </div>
+    </div>
+  );
+}
+
+function ReviewCard() {
+  return (
+    <div
+      data-ui
+      className="w-full max-w-[260px] rounded-lg border border-border bg-card p-4 text-left shadow-sm"
+    >
+      <div className="flex items-center justify-between">
+        <div className="text-xs font-medium text-muted-foreground">Review</div>
+        <div className="rounded bg-accent px-1.5 py-0.5 text-[10px] font-medium text-accent-foreground">
+          In review
+        </div>
+      </div>
+      <div className="mt-1 text-sm font-medium">Fix login button on mobile</div>
+      <div className="mt-2 space-y-1">
+        <div className="flex items-center text-xs text-muted-foreground">
+          <IconCheck className="size-3 text-primary" />
+          <span>Reproduced on iOS</span>
+        </div>
+        <div className="flex items-center text-xs text-muted-foreground">
+          <IconCheck className="size-3 text-primary" />
+          <span>Root cause identified</span>
+        </div>
+        <div className="flex items-center text-xs text-muted-foreground">
+          <div className="size-3 rounded-sm border border-border" />
+          <span>Fix pending</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DecisionCard() {
+  return (
+    <div
+      data-ui
+      className="w-full max-w-[260px] rounded-lg border border-border bg-card p-4 text-left shadow-sm"
+    >
+      <div className="flex items-center justify-between">
+        <div className="text-xs font-medium text-muted-foreground">
+          Decision
+        </div>
+        <div className="rounded bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">
+          Approved
+        </div>
+      </div>
+      <div className="mt-1 text-sm font-medium">Fix login button on mobile</div>
+      <div className="mt-2 flex items-center text-xs text-muted-foreground">
+        <IconCheck className="size-3 text-primary" />
+        <span>Approved by reviewer@triage.app</span>
+      </div>
+      <div className="mt-1 text-xs text-muted-foreground">2026-10-14 10:45</div>
+    </div>
+  );
+}
+
+/* -------------------------------- Features -------------------------------- */
+
+function Features() {
+  const features = [
+    {
+      icon: IconMessage,
+      sentence: "New messages from your Discord channels become intake.",
+      consequence: "Connect a channel and Triage imports every new message.",
+      color: "bg-accent text-accent-foreground",
+    },
+    {
+      icon: IconCopy,
+      sentence: "Triage suggests likely duplicates with evidence.",
+      consequence: "Semantic matching shows the matched text and score.",
+      color: "bg-primary text-primary-foreground",
+    },
+    {
+      icon: IconShield,
+      sentence: "A person approves or rejects every candidate.",
+      consequence: "Nothing becomes a ticket without a human decision.",
+      color: "bg-foreground text-background",
+    },
+    {
+      icon: IconBell,
+      sentence: "Review decisions are posted back to Discord.",
+      consequence: "Your team sees the outcome where the report came from.",
+      color: "bg-accent text-accent-foreground",
+    },
+    {
+      icon: IconUsers,
+      sentence:
+        "Teams work together with submitter, reviewer, and admin roles.",
+      consequence: "Control who can intake, review, and manage the workspace.",
+      color: "bg-primary text-primary-foreground",
+    },
+  ];
+
+  return (
+    <section className="py-24 sm:py-32">
+      <div className="mx-auto max-w-none px-6 sm:px-10 lg:px-16 xl:px-20">
+        <h2 className="text-[clamp(28px,2.9vw,44px)] leading-[1.15] font-medium tracking-tight">
+          What Triage does
+        </h2>
+      </div>
+      <div className="mt-12">
+        {features.map((feature, i) => (
+          <FeatureBand key={i} feature={feature} defaultOn={i < 2} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FeatureBand({
+  feature,
+  defaultOn,
+}: {
+  feature: {
+    icon: React.ComponentType<{ className?: string }>;
+    sentence: string;
+    consequence: string;
+    color: string;
+  };
+  defaultOn: boolean;
+}) {
+  const [on, setOn] = useState(defaultOn);
+  const Icon = feature.icon;
+
+  return (
+    <div
+      className={cn(
+        "border-t border-border transition-colors",
+        on ? feature.color : "bg-background text-muted-foreground",
+      )}
+    >
+      <div className="mx-auto flex max-w-none items-center gap-6 px-6 py-8 sm:px-10 sm:py-10 lg:px-16 xl:px-20">
+        <Icon className="size-6 shrink-0" />
+        <div className="min-w-0 flex-1">
+          <p className="text-[clamp(30px,3.6vw,60px)] leading-[1.1] font-medium tracking-tight">
+            {feature.sentence}
+          </p>
+          {on && (
+            <p className="mt-2 text-sm leading-6 opacity-70">
+              {feature.consequence}
+            </p>
+          )}
+        </div>
+        <button
+          role="switch"
+          aria-checked={on}
+          aria-label={feature.sentence}
+          onClick={() => setOn(!on)}
+          className={cn(
+            "relative h-8 w-14 shrink-0 rounded-full border transition-colors",
+            on ? "border-transparent bg-current/20" : "border-border bg-muted",
+          )}
+        >
+          <span
+            className={cn(
+              "absolute top-1/2 left-1 size-6 -translate-y-1/2 rounded-full transition-transform",
+              on
+                ? "translate-x-6 bg-current"
+                : "translate-x-0 bg-muted-foreground",
+            )}
+          />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------------------------- FAQ ----------------------------------- */
+
+function FAQ() {
+  const [openFaq, setOpenFaq] = useState<string[]>([]);
+  const faqs = [
+    {
+      q: "What is Triage?",
+      a: "Triage is a calm, professional workspace for small and medium software teams. It turns incoming reports into reviewable ticket candidates that a person approves or rejects.",
+    },
+    {
+      q: "How does Discord intake work?",
+      a: "Connect a Discord channel and Triage imports every new message as intake. Earlier history is outside the first milestone. A bot running during the demonstration is sufficient.",
+    },
+    {
+      q: "How does AI duplicate suggestion work?",
+      a: "Triage uses OpenRouter embeddings for semantic comparison with existing candidates in the same workspace. It shows likely matches with the matched text and score as evidence. A reviewer confirms or dismisses each suggestion.",
+    },
+    {
+      q: "What are the roles in a workspace?",
+      a: "There are three roles: Submitter adds intake and candidates and views their status. Reviewer views workspace submissions and approves or rejects candidates. Admin has both sets of actions and manages invitations and roles.",
+    },
+    {
+      q: "How does human review work?",
+      a: "A reviewer examines each candidate, its evidence, and any duplicate suggestions. They approve or reject the candidate. The decision is recorded inside Triage with its reviewer and time.",
+    },
+    {
+      q: "Is Triage free?",
+      a: "Triage is a university project. Pricing has not been determined yet.",
+    },
+  ];
+
+  return (
+    <section className="py-24 sm:py-32">
+      <div className="mx-auto max-w-none px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-20">
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <h2 className="text-[clamp(28px,2.9vw,44px)] leading-[1.15] font-medium tracking-tight">
+              Questions
+            </h2>
+          </div>
+          <Accordion
+            value={openFaq}
+            onValueChange={(v) => setOpenFaq(v as string[])}
+          >
+            {faqs.map((faq) => (
+              <AccordionItem key={faq.q} value={faq.q}>
+                <AccordionTrigger className="text-left">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent>{faq.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------- CTA ----------------------------------- */
+
+function CTA() {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subject = encodeURIComponent("Sign up for Triage");
+    const body = encodeURIComponent(`Email: ${email}`);
+    window.location.href = `mailto:hello@triage.app?subject=${subject}&body=${body}`;
+  };
+
+  return (
+    <section className="py-24 sm:py-32">
+      <div className="mx-auto max-w-none px-6 sm:px-10 lg:px-16 xl:px-20">
+        <p className="text-[clamp(40px,6vw,96px)] leading-[1.05] font-semibold tracking-[-0.03em]">
+          Turn your reports into
+          <br />
+          reviewable candidates.
+        </p>
+        <form
+          onSubmit={handleSubmit}
+          className="mt-10 flex flex-wrap items-center gap-4"
+        >
+          <Label htmlFor="cta-email" className="sr-only">
+            Email
+          </Label>
+          <Input
+            id="cta-email"
+            type="email"
+            placeholder="you@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Button type="submit" size="lg" className="min-h-12">
+            Sign up
+          </Button>
+        </form>
+        <p className="mt-4 text-sm text-muted-foreground">
+          We will email you to set up your workspace.
+        </p>
+      </div>
+    </section>
   );
 }
