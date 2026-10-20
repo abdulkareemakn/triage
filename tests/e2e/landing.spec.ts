@@ -3,6 +3,8 @@ import { expect, test } from "@playwright/test";
 test("introduces Triage and collects waitlist emails", async ({ page }) => {
   await page.goto("/");
 
+  await expect(page.getByRole("banner")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Triage home" })).toBeVisible();
   await expect(
     page.getByRole("heading", { level: 1, name: /Every report, reviewed/ }),
   ).toBeVisible();
