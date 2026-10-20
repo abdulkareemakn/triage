@@ -1,19 +1,28 @@
 import { expect, test } from "@playwright/test";
 
-test("introduces Triage and collects a waitlist email", async ({ page }) => {
+test("introduces Triage and collects waitlist emails", async ({ page }) => {
   await page.goto("/");
 
   await expect(
     page.getByRole("heading", { level: 1, name: /Every report, reviewed/ }),
   ).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Questions" })).toBeVisible();
 
-  const email = page.getByLabel("Email address");
-  await expect(email).toBeVisible();
-  await email.fill(`waitlist-${Date.now()}@example.com`);
-  await page.getByRole("button", { name: "Join the waitlist" }).click();
+  const hero = page.locator("#top");
+  await hero.getByLabel("Email address").fill(`hero-${Date.now()}@example.com`);
+  await hero.getByRole("button", { name: "Join the waitlist" }).click();
+  await expect(hero.getByRole("status")).toHaveText(
+    "You're on the list. We'll be in touch.",
+  );
 
-  await expect(page.getByRole("status")).toHaveText(
+  const footer = page.locator("footer");
+  await expect(
+    footer.getByRole("heading", { name: "Your Triage awaits." }),
+  ).toBeVisible();
+  await footer
+    .getByLabel("Email address")
+    .fill(`footer-${Date.now()}@example.com`);
+  await footer.getByRole("button", { name: "Join the waitlist" }).click();
+  await expect(footer.getByRole("status")).toHaveText(
     "You're on the list. We'll be in touch.",
   );
 });

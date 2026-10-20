@@ -1,57 +1,86 @@
+import { IconArrowUp } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
 
+import { WaitlistForm } from "@/components/combined/waitlist-form";
+
+const footerLinks = [
+  { to: "/features", label: "Features" },
+  { to: "/contact", label: "Contact" },
+  { to: "/sign-in", label: "Sign in" },
+] as const;
+
+const linkClass =
+  "text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground";
+
 /**
- * The footer is a designed close: the name returns large, a few links,
- * and the picture credits the archival photographs used on the pages.
+ * The public close: a serif statement and a second waitlist entry, then
+ * the credits and a low-contrast wordmark that runs off the page.
  */
 export function SiteFooter() {
   return (
-    <footer className="bg-secondary">
-      <div className="mx-auto max-w-6xl px-5 pt-12 pb-10 sm:px-8">
-        <p
-          className="text-5xl leading-none font-semibold tracking-tight sm:text-6xl"
-          aria-hidden="true"
-        >
-          Triage
-        </p>
-        <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <p className="max-w-sm text-sm leading-6 text-muted-foreground">
-            Incoming reports become ticket candidates. A person decides what
-            becomes work. A university project.
-          </p>
-          <nav
-            aria-label="Footer navigation"
-            className="flex flex-col items-start gap-2 text-sm"
-          >
-            <Link
-              to="/features"
-              className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
-            >
-              Features
-            </Link>
-            <Link
-              to="/contact"
-              className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
-            >
-              Contact
-            </Link>
-            <Link
-              to="/sign-in"
-              className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
-            >
-              Sign in
-            </Link>
-          </nav>
+    <footer className="overflow-hidden border-t border-border bg-secondary">
+      <div className="px-6 pt-20 pb-10 sm:px-10 sm:pt-28 lg:px-16 xl:px-20">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-6">
+          <h2 className="text-[clamp(40px,5.6vw,88px)] leading-[0.95] font-semibold tracking-[-0.03em] text-balance lg:col-span-7">
+            Your Triage awaits.
+          </h2>
+          <div className="lg:col-span-5 lg:col-start-8 lg:self-end">
+            <p className="max-w-[440px] text-base leading-7 text-muted-foreground">
+              Triage is still being built. Leave an email and we&apos;ll write
+              when there&apos;s something to try.
+            </p>
+            <div className="mt-8">
+              <WaitlistForm variant="footer" />
+            </div>
+          </div>
         </div>
-        <p className="mt-10 text-xs leading-5 text-muted-foreground">
-          Archival photographs: “General Post Office mail sorting room,
-          Wellington c.1900s” by Archives New Zealand, CC BY-SA 2.0, via
-          Wikimedia Commons · “Mail receiving sorting room, U.S” by Library of
-          Congress, CC0, via rawpixel · “Denges-Triage-Bosse2” by MHM55, CC
-          BY-SA 4.0, via Wikimedia Commons. Photographs show the world around
-          the subject; they are not Triage’s own product.
+
+        <div className="mt-16 grid gap-8 border-t border-border pt-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
+          <div className="max-w-xl text-[11px] leading-[1.6] text-muted-foreground">
+            <p>
+              Triage is a university project. Incoming reports become ticket
+              candidates; a person decides what becomes work.
+            </p>
+            <p className="mt-4">
+              Archival photographs: &ldquo;General Post Office mail sorting
+              room, Wellington c.1900s&rdquo; by Archives New Zealand, CC BY-SA
+              2.0, via Wikimedia Commons &middot; &ldquo;Mail receiving sorting
+              room, U.S&rdquo; by Library of Congress, CC0, via rawpixel
+              &middot; &ldquo;Denges-Triage-Bosse2&rdquo; by MHM55, CC BY-SA
+              4.0, via Wikimedia Commons. Photographs show the world around the
+              subject; they are not Triage&rsquo;s own product.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-4 sm:items-end">
+            <nav
+              aria-label="Footer navigation"
+              className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"
+            >
+              {footerLinks.map((link) => (
+                <Link key={link.to} to={link.to} className={linkClass}>
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <div className="flex items-center gap-4 text-[11px] text-muted-foreground">
+              <p>&copy; 2026 Triage</p>
+              <a
+                href="#top"
+                aria-label="Back to top"
+                className="inline-flex size-8 items-center justify-center rounded-md transition-colors hover:bg-background hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+              >
+                <IconArrowUp size={16} stroke={2} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div aria-hidden="true" className="select-none px-2">
+        <p className="translate-y-[0.12em] text-center text-[clamp(72px,23vw,320px)] leading-[0.72] font-semibold tracking-[-0.055em] text-foreground/[0.055] [text-shadow:0_1px_0_var(--background),0_-1px_0_color-mix(in_oklab,var(--foreground)_10%,transparent)]">
+          TRIAGE
         </p>
-        <p className="mt-4 text-xs text-muted-foreground">© 2026 Triage</p>
       </div>
     </footer>
   );

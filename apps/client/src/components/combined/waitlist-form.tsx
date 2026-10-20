@@ -10,11 +10,17 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+type WaitlistFormProps = {
+  variant?: "hero" | "footer";
+};
+
 /**
- * The landing page's only conversion: one email field and one action.
- * The API is idempotent, so a repeat submission reads as success.
+ * A waitlist entry: one email field and one action. The same form closes
+ * the hero and the footer; the API is idempotent, so a repeat submission
+ * reads as success.
  */
-export function WaitlistForm() {
+export function WaitlistForm({ variant = "hero" }: WaitlistFormProps) {
+  const isFooter = variant === "footer";
   const inputId = useId();
   const messageId = useId();
   const [email, setEmail] = useState("");
@@ -61,7 +67,11 @@ export function WaitlistForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} noValidate className="w-full max-w-md">
+    <form
+      onSubmit={onSubmit}
+      noValidate
+      className={cn("w-full", isFooter ? "max-w-lg" : "max-w-md")}
+    >
       <div className="flex flex-col gap-3 sm:flex-row">
         <Label htmlFor={inputId} className="sr-only">
           Email address
@@ -84,12 +94,15 @@ export function WaitlistForm() {
           aria-describedby={message ? messageId : undefined}
           required
           disabled={status === "submitting"}
-          className="h-11 min-w-0 flex-1 sm:min-w-64"
+          className={cn(
+            "min-w-0 flex-1 sm:min-w-64",
+            isFooter ? "min-h-12" : "min-h-11",
+          )}
         />
         <Button
           type="submit"
           size="lg"
-          className="min-h-11 w-full sm:w-auto"
+          className={cn("w-full sm:w-auto", isFooter ? "min-h-12" : "min-h-11")}
           disabled={status === "submitting"}
           aria-busy={status === "submitting"}
         >

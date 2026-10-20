@@ -8,6 +8,7 @@ import {
 } from "@/components/combined/longcat";
 import { MimoFeatureParagraph } from "@/components/combined/mimo";
 import { useRevealOnScroll } from "@/components/marketing/motion";
+import { SiteFooter } from "@/components/marketing/site-footer";
 
 export const Route = createFileRoute("/")({
   component: CombinedPage,
@@ -26,6 +27,7 @@ function CombinedPage() {
       <LongcatStages />
       <MimoFeatureParagraph />
       <FAQ />
+      <SiteFooter />
     </>
   );
 }
