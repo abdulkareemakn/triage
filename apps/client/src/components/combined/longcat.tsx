@@ -1,17 +1,13 @@
 import {
   IconArrowRight,
-  IconBell,
   IconCheck,
   IconCopy,
-  IconMessage,
-  IconShield,
   IconUsers,
   IconX,
 } from "@tabler/icons-react";
-import { useState, type ComponentType, type FormEvent } from "react";
+import { useState } from "react";
 
-import { WorkspaceDialogFragment } from "@/components/marketing/fragments";
-import { MaskedLine, Reveal } from "@/components/marketing/motion";
+import { MaskedLine } from "@/components/marketing/motion";
 import {
   Accordion,
   AccordionContent,
@@ -19,8 +15,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 type Stage = "intake" | "candidate" | "review" | "decision";
@@ -468,122 +462,6 @@ function DecisionCard() {
   );
 }
 
-/* --------------------------- Capability bands ----------------------------- */
-
-export function CapabilityBands() {
-  const features = [
-    {
-      icon: IconMessage,
-      sentence: "New messages from your Discord channels become intake.",
-      consequence: "Connect a channel and Triage imports every new message.",
-      color: "bg-accent text-accent-foreground",
-    },
-    {
-      icon: IconCopy,
-      sentence: "Triage suggests likely duplicates with evidence.",
-      consequence: "Semantic matching shows the matched text and score.",
-      color: "bg-primary text-primary-foreground",
-    },
-    {
-      icon: IconShield,
-      sentence: "A person approves or rejects every candidate.",
-      consequence: "Nothing becomes a ticket without a human decision.",
-      color: "bg-foreground text-background",
-    },
-    {
-      icon: IconBell,
-      sentence: "Review decisions are posted back to Discord.",
-      consequence: "Your team sees the outcome where the report came from.",
-      color: "bg-accent text-accent-foreground",
-    },
-    {
-      icon: IconUsers,
-      sentence:
-        "Teams work together with submitter, reviewer, and admin roles.",
-      consequence: "Control who can intake, review, and manage the workspace.",
-      color: "bg-primary text-primary-foreground",
-    },
-  ];
-
-  return (
-    <section id="capabilities" className="py-24 sm:py-32">
-      <div className="mx-auto max-w-none px-6 sm:px-10 lg:px-16 xl:px-20">
-        <h2 className="text-[clamp(28px,2.9vw,44px)] leading-[1.15] font-medium tracking-tight">
-          What Triage does
-        </h2>
-      </div>
-      <div className="mt-12">
-        {features.map((feature, index) => (
-          <FeatureBand
-            key={feature.sentence}
-            feature={feature}
-            defaultOn={index < 2}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function FeatureBand({
-  feature,
-  defaultOn,
-}: {
-  feature: {
-    icon: ComponentType<{ className?: string }>;
-    sentence: string;
-    consequence: string;
-    color: string;
-  };
-  defaultOn: boolean;
-}) {
-  const [on, setOn] = useState(defaultOn);
-  const Icon = feature.icon;
-
-  return (
-    <div
-      className={cn(
-        "border-t border-border transition-colors",
-        on ? feature.color : "bg-background text-muted-foreground",
-      )}
-    >
-      <div className="mx-auto flex max-w-none items-center gap-6 px-6 py-8 sm:px-10 sm:py-10 lg:px-16 xl:px-20">
-        <Icon className="size-6 shrink-0" />
-        <div className="min-w-0 flex-1">
-          <p className="text-[clamp(30px,3.6vw,60px)] leading-[1.1] font-medium tracking-tight">
-            {feature.sentence}
-          </p>
-          {on && (
-            <p className="mt-2 text-sm leading-6 opacity-70">
-              {feature.consequence}
-            </p>
-          )}
-        </div>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={on}
-          aria-label={feature.sentence}
-          onClick={() => setOn(!on)}
-          className={cn(
-            "relative h-8 w-14 shrink-0 rounded-full border transition-colors",
-            on ? "border-transparent bg-current/20" : "border-border bg-muted",
-          )}
-        >
-          <span
-            className={cn(
-              "absolute top-1/2 left-1 size-6 -translate-y-1/2 rounded-full transition-transform",
-              on
-                ? "translate-x-6 bg-current"
-                : "translate-x-0 bg-muted-foreground",
-            )}
-          />
-        </button>
-      </div>
-    </div>
-  );
-}
-
 /* ---------------------------------- FAQ ----------------------------------- */
 
 export function FAQ() {
@@ -638,74 +516,6 @@ export function FAQ() {
             ))}
           </Accordion>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------- The close ------------------------------- */
-
-export function CombinedClose() {
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const subject = encodeURIComponent("Sign up for Triage");
-    const body = encodeURIComponent(`Email: ${email}`);
-    window.location.href = `mailto:hello@triage.app?subject=${subject}&body=${body}`;
-  };
-
-  return (
-    <section
-      id="start"
-      className="bg-accent px-5 py-20 text-accent-foreground sm:px-8 md:min-h-[84svh] md:py-0"
-    >
-      <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
-        <div>
-          <Reveal>
-            <p className="text-sm font-semibold tracking-[0.16em] uppercase opacity-70">
-              Start with one report.
-            </p>
-            <h2 className="mt-4 text-[clamp(2.75rem,6vw,5rem)] leading-[0.95] font-semibold tracking-tight">
-              Turn your reports into
-              <br />
-              reviewable candidates.
-            </h2>
-            <p className="mt-6 max-w-md text-base leading-6">
-              Name a workspace, invite your reviewers, and put the next report
-              through. Nothing is filed until a person approves it.
-            </p>
-          </Reveal>
-
-          <form
-            onSubmit={handleSubmit}
-            className="mt-8 flex flex-wrap items-center gap-3"
-          >
-            <Label htmlFor="combined-email" className="sr-only">
-              Email
-            </Label>
-            <Input
-              id="combined-email"
-              type="email"
-              placeholder="you@company.com"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              className="min-h-12 w-full max-w-xs"
-            />
-            <Button type="submit" size="lg" className="min-h-12">
-              Sign up
-            </Button>
-          </form>
-          <p className="mt-3 text-sm opacity-70">
-            We will email you to set up your workspace.
-          </p>
-        </div>
-
-        <Reveal delay={120} className="md:justify-self-end">
-          <div className="w-full max-w-sm">
-            <WorkspaceDialogFragment />
-          </div>
-        </Reveal>
       </div>
     </section>
   );
