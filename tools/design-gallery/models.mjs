@@ -312,14 +312,13 @@ export const MODELS = [
     discarded: false,
     combined: true,
     direction:
-      "Longcat's editorial scale, board, color bands, toggles, and FAQ merged with Mimo Flash's pinned reel, fragments, masked-line motion, archival context, and detail sections.",
+      "Longcat's editorial hero, working board, four color bands, and FAQ, with Mimo Flash's word-slot prose. The duplicate Mimo sections and closing CTA were removed after the first review.",
     summary:
-      "The first single-page merge of the two finalists. Headers and footers are intentionally omitted so they can be designed separately.",
+      "The trimmed single-page merge of the two finalists. Headers, footers, and a closing CTA are intentionally absent so they can be designed separately.",
     knownIssues: [
-      "Removal preview active: red dashed outlines and X badges mark the sections requested for removal; nothing has been deleted yet.",
-      "The kept 'See every feature' link currently targets the marked feature-rows section; retarget or remove that link when deletion is confirmed.",
-      "The closing CTA is being treated as the footer-equivalent; the page has no separate footer.",
-      "The pinned reel is the heaviest interaction and is marked for removal following review.",
+      "The page intentionally ends at the FAQ; headers, footers, and a closing CTA still need to be designed.",
+      "Mimo's reel, call-and-response, feature rows, context, integrations, roles, and the previous closing CTA are no longer rendered.",
+      "The removed sections remain in git history under the earlier design-wall tags.",
     ],
     components: [
       {
@@ -328,19 +327,9 @@ export const MODELS = [
         note: "Longcat's giant statement and accent disc, with Mimo's masked-line entrance.",
       },
       {
-        name: "The loop in motion",
-        file: "apps/client/src/components/combined/mimo.tsx",
-        note: "Mimo's scroll-pinned reel stepping through Intake, Candidate, and Decision.",
-      },
-      {
         name: "Working board",
         file: "apps/client/src/components/combined/longcat.tsx",
-        note: "Longcat's four-stage TriageBoard, now synchronized with the large stage list.",
-      },
-      {
-        name: "From report to decision",
-        file: "apps/client/src/components/combined/mimo.tsx",
-        note: "Mimo's call-and-response column with compact intake, candidate, and decision fragments.",
+        note: "Longcat's four-stage TriageBoard, synchronized with the large stage list.",
       },
       {
         name: "Four stage bands",
@@ -353,39 +342,9 @@ export const MODELS = [
         note: "Mimo's word-slot paragraph with inline product objects.",
       },
       {
-        name: "Capability bands",
-        file: "apps/client/src/components/combined/longcat.tsx",
-        note: "Longcat's five toggle-driven capability bands.",
-      },
-      {
-        name: "Feature rows",
-        file: "apps/client/src/components/combined/mimo.tsx",
-        note: "Mimo's four detail rows, including the review queue fragment.",
-      },
-      {
-        name: "Context and archive",
-        file: "apps/client/src/components/combined/mimo.tsx",
-        note: "Mimo's lead line, drifting archival photograph, and four context columns.",
-      },
-      {
-        name: "Around the loop",
-        file: "apps/client/src/components/combined/mimo.tsx",
-        note: "Mimo's four integration statements.",
-      },
-      {
-        name: "Roles table",
-        file: "apps/client/src/components/combined/mimo.tsx",
-        note: "Mimo's submitter, reviewer, and admin permission table.",
-      },
-      {
         name: "Questions",
         file: "apps/client/src/components/combined/longcat.tsx",
         note: "Longcat's sticky-heading FAQ accordion.",
-      },
-      {
-        name: "Closing CTA",
-        file: "apps/client/src/components/combined/longcat.tsx",
-        note: "Longcat's email form and headline merged with Mimo's workspace dialog fragment.",
       },
     ],
   },
