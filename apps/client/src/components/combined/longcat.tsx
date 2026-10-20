@@ -42,7 +42,7 @@ export function LongcatHero() {
 
       <div className="relative z-10 flex min-h-[calc(100svh-4rem)] items-center">
         <div className="mx-auto w-full max-w-none px-6 sm:px-10 lg:px-16 xl:px-20">
-          <h1 className="max-w-5xl text-[clamp(64px,6.4vw,100px)] leading-[0.95] font-semibold tracking-[-0.03em] text-balance">
+          <h1 className="max-w-5xl text-[clamp(64px,6.4vw,100px)] leading-[1.2] font-semibold tracking-[-0.03em] text-balance">
             <MaskedLine>Every report,</MaskedLine>
             <MaskedLine delay={110}>reviewed.</MaskedLine>
           </h1>
