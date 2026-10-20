@@ -29,12 +29,14 @@ Stop the wall and all six model servers with `Ctrl+C`.
 | 4104 | Mimo Flash      |
 | 4105 | Space Bunny     |
 | 4106 | Step 5          |
+| 4107 | Combined        |
 
 ## What you can do
 
-- Switch between the models. Longcat, Mimo Flash, and Step 5 are the current
-  finalists. Cat Jam, Ling Flash, and Space Bunny are dropped and hidden by
-  default; use **Show dropped** to bring them back.
+- Switch between the models. Longcat and Mimo Flash are the finalists, and
+  **Combined** is the first single-page merge of the two. Step 5, Cat Jam, Ling
+  Flash, and Space Bunny are dropped and hidden by default; use **Show dropped**
+  to bring them back.
 - Switch routes: landing, features, contact, sign in, sign up.
 - Compare real responsive viewports: desktop, laptop, tablet, mobile.
 - Open a model full-screen.

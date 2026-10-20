@@ -233,7 +233,7 @@ export const MODELS = [
     root: "step-5",
     branch: "model/step-5-triage-marketing",
     tag: "design-wall/step-5",
-    discarded: false,
+    discarded: true,
     direction:
       "A switchboard and card-index archive metaphor, five named type steps, and a consistent data-ui fragment grammar.",
     summary:
@@ -299,6 +299,93 @@ export const MODELS = [
         name: "AuthPage",
         file: "apps/client/src/components/auth-page.tsx",
         note: "Shared sign-in and sign-up composition.",
+      },
+    ],
+  },
+  {
+    id: "combined",
+    label: "Combined",
+    port: 4107,
+    root: "combined",
+    branch: "model/combined-triage-marketing",
+    tag: "design-wall/combined",
+    discarded: false,
+    combined: true,
+    direction:
+      "Longcat's editorial scale, board, color bands, toggles, and FAQ merged with Mimo Flash's pinned reel, fragments, masked-line motion, archival context, and detail sections.",
+    summary:
+      "The first single-page merge of the two finalists. Headers and footers are intentionally omitted so they can be designed separately.",
+    knownIssues: [
+      "First merged composition; some explanatory sections deliberately overlap and should be trimmed after review.",
+      "The pinned reel and the call-and-response both use the same three fragments; decide which treatment earns its place.",
+      "Longcat's four color bands and Mimo's feature rows tell the same loop at different scales; the page currently keeps both for comparison.",
+      "The pinned reel is the heaviest interaction and needs a low-end device check.",
+    ],
+    components: [
+      {
+        name: "Opening hero",
+        file: "apps/client/src/components/combined/longcat.tsx",
+        note: "Longcat's giant statement and accent disc, with Mimo's masked-line entrance.",
+      },
+      {
+        name: "The loop in motion",
+        file: "apps/client/src/components/combined/mimo.tsx",
+        note: "Mimo's scroll-pinned reel stepping through Intake, Candidate, and Decision.",
+      },
+      {
+        name: "Working board",
+        file: "apps/client/src/components/combined/longcat.tsx",
+        note: "Longcat's four-stage TriageBoard, now synchronized with the large stage list.",
+      },
+      {
+        name: "From report to decision",
+        file: "apps/client/src/components/combined/mimo.tsx",
+        note: "Mimo's call-and-response column with compact intake, candidate, and decision fragments.",
+      },
+      {
+        name: "Four stage bands",
+        file: "apps/client/src/components/combined/longcat.tsx",
+        note: "Longcat's full-bleed color bands with the four static product cards.",
+      },
+      {
+        name: "What Triage does prose",
+        file: "apps/client/src/components/combined/mimo.tsx",
+        note: "Mimo's word-slot paragraph with inline product objects.",
+      },
+      {
+        name: "Capability bands",
+        file: "apps/client/src/components/combined/longcat.tsx",
+        note: "Longcat's five toggle-driven capability bands.",
+      },
+      {
+        name: "Feature rows",
+        file: "apps/client/src/components/combined/mimo.tsx",
+        note: "Mimo's four detail rows, including the review queue fragment.",
+      },
+      {
+        name: "Context and archive",
+        file: "apps/client/src/components/combined/mimo.tsx",
+        note: "Mimo's lead line, drifting archival photograph, and four context columns.",
+      },
+      {
+        name: "Around the loop",
+        file: "apps/client/src/components/combined/mimo.tsx",
+        note: "Mimo's four integration statements.",
+      },
+      {
+        name: "Roles table",
+        file: "apps/client/src/components/combined/mimo.tsx",
+        note: "Mimo's submitter, reviewer, and admin permission table.",
+      },
+      {
+        name: "Questions",
+        file: "apps/client/src/components/combined/longcat.tsx",
+        note: "Longcat's sticky-heading FAQ accordion.",
+      },
+      {
+        name: "Closing CTA",
+        file: "apps/client/src/components/combined/longcat.tsx",
+        note: "Longcat's email form and headline merged with Mimo's workspace dialog fragment.",
       },
     ],
   },
