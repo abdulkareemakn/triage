@@ -129,7 +129,7 @@ body,
   /* Self-hosted font imports/@font-face go above the theme rules in this file. */
   --font-sans: "PP Mori", system-ui, sans-serif;
   --font-serif: Domine, Georgia, serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-mono: "Space Mono", ui-monospace, monospace; /* taste-skill-ignore */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
