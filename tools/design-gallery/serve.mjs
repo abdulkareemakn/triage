@@ -208,7 +208,7 @@ function printSummary() {
   console.log(rows.join("\n"));
   console.log(`\nModel sources: ${modelsRoot}`);
   console.log(`Logs: ${logDir}/design-wall-*.log`);
-  console.log("Press Ctrl+C to stop the wall and all six model servers.\n");
+  console.log("Press Ctrl+C to stop the wall and all model servers.\n");
 }
 
 function shutdown(reason) {

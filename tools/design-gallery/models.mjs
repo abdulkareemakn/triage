@@ -16,7 +16,7 @@ export const VIEWPORTS = [
 ];
 
 /**
- * The six model explorations are marketing sites, not product workspaces.
+ * The model explorations are marketing sites, not product workspaces.
  * They all use the DESIGN.md palette and type families; the comparison is
  * about composition, motion, and the product fragments embedded in the pages.
  */

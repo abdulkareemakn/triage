@@ -1,6 +1,6 @@
 # Triage design wall
 
-A local comparison wall for the six model-built marketing fronts
+A local comparison wall for the model-built marketing fronts
 (`cat-jam`, `ling-flash`, `longcat`, `mimo-flash`, `space-bunny`, `step-5`).
 
 The goal is to choose a composition and a set of components, then consolidate
@@ -16,7 +16,7 @@ pnpm design-wall
 
 Open the printed URL, normally <http://127.0.0.1:4100>.
 
-Stop the wall and all six model servers with `Ctrl+C`.
+Stop the wall and all model servers with `Ctrl+C`.
 
 ## Ports
 
