@@ -304,6 +304,32 @@ textarea:focus-visible {
   text-transform: uppercase;
 }
 
+.rail-filter {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 4px 8px;
+}
+
+.discarded-badge {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--panel-3);
+  color: var(--faint);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.model-card[data-discarded="true"] {
+  opacity: 0.55;
+}
+
+.model-card[data-discarded="true"]:hover,
+.model-card[data-discarded="true"][data-selected="true"] {
+  opacity: 1;
+}
+
 .model-list {
   display: flex;
   flex-direction: column;

@@ -28,6 +28,7 @@ export const MODELS = [
     root: "cat-jam",
     branch: "model/cat-jam-triage-marketing",
     tag: "design-wall/cat-jam",
+    discarded: true,
     direction:
       "Editorial split hero, cool indigo surfaces, serif display type, and border-delimited sections.",
     summary:
@@ -63,6 +64,7 @@ export const MODELS = [
     root: "ling-flash",
     branch: "model/ling-flash-triage-marketing",
     tag: "design-wall/ling-flash",
+    discarded: true,
     direction:
       "A narrow reading rail, receipt-edge process section, greyscale found photography, and a dark split hero.",
     summary:
@@ -103,6 +105,7 @@ export const MODELS = [
     root: "longcat",
     branch: "model/longcat-triage-marketing",
     tag: "design-wall/longcat",
+    discarded: false,
     direction:
       "Oversized editorial type, giant cropped accent discs, and full-bleed color-block bands.",
     summary:
@@ -138,6 +141,7 @@ export const MODELS = [
     root: "mimo-flash",
     branch: "model/mimo-flash-triage-marketing",
     tag: "design-wall/mimo-flash",
+    discarded: false,
     direction:
       "Warm paper, archival mail-sorting photography, a scroll-pinned product reel, and masked-line motion.",
     summary:
@@ -178,6 +182,7 @@ export const MODELS = [
     root: "space-bunny",
     branch: "model/space-bunny-triage-marketing",
     tag: "design-wall/space-bunny",
+    discarded: true,
     direction:
       "A navy notched hero, departure-board queue, and a reviewer plate with margin notes.",
     summary:
@@ -228,6 +233,7 @@ export const MODELS = [
     root: "step-5",
     branch: "model/step-5-triage-marketing",
     tag: "design-wall/step-5",
+    discarded: false,
     direction:
       "A switchboard and card-index archive metaphor, five named type steps, and a consistent data-ui fragment grammar.",
     summary:

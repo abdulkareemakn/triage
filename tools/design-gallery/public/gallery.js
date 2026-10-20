@@ -5,6 +5,7 @@ const STORAGE = {
   notes: "triage-design-wall:notes",
   base: "triage-design-wall:base",
   state: "triage-design-wall:state",
+  showDiscarded: "triage-design-wall:show-discarded",
 };
 
 const state = {
@@ -19,6 +20,8 @@ let statusById = new Map();
 let shortlist = readJson(STORAGE.shortlist, {});
 let notes = readJson(STORAGE.notes, {});
 let baseModel = window.localStorage.getItem(STORAGE.base) || null;
+let showDiscarded =
+  window.localStorage.getItem(STORAGE.showDiscarded) === "true";
 let statusTimer = null;
 let toastTimer = null;
 let compareBuilt = false;
@@ -47,6 +50,7 @@ const els = {
   inspector: document.querySelector("#inspector"),
   copyShortlist: document.querySelector("#copy-shortlist"),
   clearShortlist: document.querySelector("#clear-shortlist"),
+  toggleDiscarded: document.querySelector("#toggle-discarded"),
   toast: document.querySelector("#toast"),
 };
 
@@ -108,6 +112,12 @@ function getStatus(modelId = state.modelId) {
   return statusById.get(modelId) || null;
 }
 
+function visibleModels() {
+  const finalists = config.models.filter((model) => !model.discarded);
+  if (!showDiscarded) return finalists;
+  return [...finalists, ...config.models.filter((model) => model.discarded)];
+}
+
 function modelUrl(model) {
   return `http://127.0.0.1:${model.port}`;
 }
@@ -138,6 +148,9 @@ function readState() {
 
   if (config.models.some((model) => model.id === modelId)) {
     state.modelId = modelId;
+    if (config.models.find((model) => model.id === modelId)?.discarded) {
+      showDiscarded = true;
+    }
   }
 
   if (config.routes.some((route) => route.path === routePath)) {
@@ -156,7 +169,7 @@ function readState() {
 function renderModelList() {
   if (!config) return;
 
-  els.modelList.innerHTML = config.models
+  els.modelList.innerHTML = visibleModels()
     .map((model) => {
       const status = getStatus(model.id);
       const picked = (shortlist[model.id] || []).length;
@@ -167,6 +180,7 @@ function renderModelList() {
           class="model-card"
           data-model-id="${escapeHtml(model.id)}"
           data-selected="${model.id === state.modelId}"
+          data-discarded="${Boolean(model.discarded)}"
           title="${escapeHtml(model.summary)}"
         >
           <span class="model-card-head">
@@ -179,6 +193,7 @@ function renderModelList() {
             <span class="model-card-name">${escapeHtml(model.label)}</span>
             <span class="model-card-badges">
               ${isBase ? '<span class="base-badge">Base</span>' : ""}
+              ${model.discarded ? '<span class="discarded-badge">Dropped</span>' : ""}
               <span class="count-badge" data-model-count="${escapeHtml(model.id)}">${picked}</span>
             </span>
           </span>
@@ -187,6 +202,17 @@ function renderModelList() {
       `;
     })
     .join("");
+
+  updateDiscardedToggle();
+}
+
+function updateDiscardedToggle() {
+  const dropped = config.models.filter((model) => model.discarded).length;
+  els.toggleDiscarded.hidden = dropped === 0;
+  els.toggleDiscarded.textContent = showDiscarded
+    ? `Hide dropped (${dropped})`
+    : `Show dropped (${dropped})`;
+  els.toggleDiscarded.setAttribute("aria-pressed", String(showDiscarded));
 }
 
 function renderToolbar() {
@@ -466,7 +492,7 @@ function buildCompareGrid() {
   if (compareBuilt || !config) return;
   compareBuilt = true;
 
-  els.compareGrid.innerHTML = config.models
+  els.compareGrid.innerHTML = visibleModels()
     .map(
       (model) => `
         <article class="compare-card" data-compare-card="${escapeHtml(model.id)}" data-selected="${model.id === state.modelId}">
@@ -667,7 +693,7 @@ function toast(message) {
 }
 
 function copyShortlist() {
-  const selections = config.models
+  const selections = visibleModels()
     .map((model) => ({
       model: model.id,
       label: model.label,
@@ -748,6 +774,21 @@ els.modeSwitch.addEventListener("click", (event) => {
 els.reload.addEventListener("click", () => syncFrame(true));
 els.copyShortlist.addEventListener("click", copyShortlist);
 els.clearShortlist.addEventListener("click", clearPicks);
+els.toggleDiscarded.addEventListener("click", () => {
+  showDiscarded = !showDiscarded;
+  window.localStorage.setItem(STORAGE.showDiscarded, String(showDiscarded));
+  renderModelList();
+
+  if (state.mode === "compare") {
+    compareBuilt = false;
+    els.compareGrid.innerHTML = "";
+    renderMode();
+  }
+
+  if (!visibleModels().some((model) => model.id === state.modelId)) {
+    focusModel(visibleModels()[0]?.id);
+  }
+});
 window.addEventListener("hashchange", handleHashChange);
 window.addEventListener("resize", () => {
   layoutFrame();
@@ -765,7 +806,7 @@ async function init() {
   }
 
   readState();
-  if (!state.modelId) state.modelId = config.models.at(-1)?.id || null;
+  if (!state.modelId) state.modelId = visibleModels()[0]?.id || null;
 
   renderModelList();
   renderToolbar();
