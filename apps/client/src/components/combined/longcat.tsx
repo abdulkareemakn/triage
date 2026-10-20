@@ -7,6 +7,7 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 
+import { WaitlistForm } from "@/components/combined/waitlist-form";
 import { MaskedLine } from "@/components/marketing/motion";
 import {
   Accordion,
@@ -47,24 +48,20 @@ export function LongcatHero() {
             candidates, and gives a reviewer the final word before anything
             becomes work.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-6">
-            <a
-              href="#start"
-              className={buttonVariants({ size: "lg", className: "min-h-11" })}
-            >
-              Create a workspace
-              <IconArrowRight className="size-4" />
-            </a>
-            <a
-              href="#reel"
-              className={buttonVariants({
-                variant: "outline",
-                size: "lg",
-                className: "min-h-11",
-              })}
-            >
-              See the loop
-            </a>
+          <div className="mt-8">
+            <WaitlistForm />
+            <div className="mt-5">
+              <a
+                href="#reel"
+                className={buttonVariants({
+                  variant: "outline",
+                  size: "lg",
+                  className: "min-h-11",
+                })}
+              >
+                See the loop
+              </a>
+            </div>
           </div>
         </div>
       </div>

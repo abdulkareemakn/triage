@@ -16,7 +16,7 @@ test("an unknown URL shows the 404 page and links back home", async ({
   await expect(
     page.getByRole("heading", {
       level: 1,
-      name: /Build something worth submitting/,
+      name: /Every report, reviewed/,
     }),
   ).toBeVisible();
 });

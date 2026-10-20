@@ -20,3 +20,5 @@ export type CreateUploadResponse = {
   key: string;
 };
 export type DownloadUploadResponse = { downloadUrl: string };
+
+export type JoinWaitlistResponse = { status: "joined" };

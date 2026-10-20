@@ -9,6 +9,7 @@ import type { createAuth } from "@/auth";
 import type { Config } from "@/config";
 import { authMiddleware } from "@/middleware/auth";
 import { uploadsRouter } from "@/routes/uploads";
+import { waitlistRouter } from "@/routes/waitlist";
 
 export function createApp(auth: ReturnType<typeof createAuth>, config: Config) {
   const app = express();
@@ -38,6 +39,7 @@ export function createApp(auth: ReturnType<typeof createAuth>, config: Config) {
   });
 
   app.use("/api/uploads", authMiddleware(auth), uploadsRouter(config));
+  app.use("/api/waitlist", waitlistRouter());
 
   app.use("/api", (_req, res) => {
     res.status(404).json({ error: "API route not found" } satisfies ApiError);
