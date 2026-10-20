@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, envDir, "API_PORT");
   return {
     envDir,
+    cacheDir: "/tmp/opencode/triage-combined-vite",
     resolve: { tsconfigPaths: true },
     plugins: [
       tanstackRouter({ target: "react", autoCodeSplitting: true }),
