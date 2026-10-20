@@ -38,7 +38,6 @@ nav = [
     "quality/index.md",
     "quality/formatting.md",
     "quality/linting.md",
-    "quality/testing.md",
   ] },
   { "Deployment" = [
     "deployment/index.md",

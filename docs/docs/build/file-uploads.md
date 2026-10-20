@@ -128,21 +128,9 @@ and error codes.
 
 ## Verify and troubleshoot
 
-For automated checks, start the dedicated test MongoDB server and export its address
-as described in [Development workflow: Upload test database](/installation/development-workflow/#upload-test-database).
-Then run from the repository root:
-
-```sh
-pnpm test:unit
-pnpm --filter @mern/server exec vitest run --root ../.. --config vitest.config.ts tests/integration/uploads.test.ts
-```
-
-The tests should pass with a temporary MongoDB database and mocked S3 network calls.
-They check signing, validation, authentication, ownership, confirmation, downloads,
-and downloads. They do not verify credentials or CORS on a live provider.
-
-For a provider check, complete the four requests above with a disposable file. The
-success condition is a confirmed record followed by a working private download.
+Complete the four requests above with a disposable file. The success condition is a
+confirmed record followed by a working private download. A provider check also
+confirms credentials and CORS, which a local-only check cannot.
 
 | Symptom                     | Check                                                                                              |
 | --------------------------- | -------------------------------------------------------------------------------------------------- |

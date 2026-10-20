@@ -8,7 +8,6 @@
     "import",
     "react",
     "jsx-a11y",
-    "vitest",
     "node"
   ],
   "jsPlugins": ["@shadcn/lint"],
@@ -18,9 +17,6 @@
   },
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "vitest/no-standalone-expect": "off",
-    "vitest/require-mock-type-parameters": "off",
-    "vitest/require-to-throw-message": "off",
     "shadcn/no-restyle": ["error", { "allow": ["layout"] }],
     "shadcn/no-unknown-classes": "error",
     "shadcn/no-inline-styles": "error",

@@ -12,12 +12,10 @@ Before editing files for a substantial task:
 
 <!-- intent-skills:end -->
 
-## Testing policy
+## Verification policy
 
-- Run the cheapest relevant tests while iterating and affected tests before finishing.
-- Prefer unit or API integration tests when a browser adds no confidence.
-- Do not run browser automation or manual browser checks. GitHub CI runs Playwright after a push; the maintainer performs visual review.
-- Add or update tests when behavior changes; run broader suites for significant changes.
+- The repository has no automated test suite. Verify changes with `pnpm check` and `pnpm typecheck`.
+- Do not run browser automation or manual browser checks. The maintainer performs visual review.
 
 ## Design system
 

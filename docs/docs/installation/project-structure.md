@@ -50,15 +50,12 @@ This starter kit is organized as a monorepo, with separate pnpm workspaces for t
 ├── deno.json                   # Legacy Deno Deploy configuration (unused by Railway)
 ├── Dockerfile                  # Production image build
 ├── package.json                # Root scripts and workspace metadata
-├── playwright.config.ts         # End-to-end test configuration
 ├── pnpm-workspace.yaml         # Workspace package globs
-├── tests/                      # Unit, integration, and end-to-end tests
-├── vitest.config.ts             # Unit and integration test configuration
 └── pnpm-lock.yaml              # Locked dependency versions
 ```
 
 The `client` and `server` packages are the runnable application. `shared` contains
-types only, `emails` contains email templates, and `mail` runs the local development inbox. Tests live at the repository root.
+types only, `emails` contains email templates, and `mail` runs the local development inbox.
 
 ## Source path aliases
 
@@ -80,8 +77,8 @@ Most root-level configuration is for development and deployment:
 
 - `.env.example` lists the environment variables used by the server and Compose.
 - `pnpm-workspace.yaml` defines `apps/*` and `packages/*` as workspace packages.
-- `package.json` contains the commands for development, builds, checks, tests,
-  and Docker Compose.
+- `package.json` contains the commands for development, builds, checks, and
+  Docker Compose.
 - `.oxfmtrc.json` and `.oxlintrc.json` configure formatting and linting.
 - `compose.db.yaml` starts MongoDB for local development; `compose.yaml` starts
   the production-style app and MongoDB stack.
@@ -101,8 +98,6 @@ Put new code in the package that owns it:
 - Add routed browser pages under `apps/client/src/routes/`, and reusable UI components to `apps/client/src/components/ui/`.
 - Add browser/server response contracts to `packages/shared/src/index.ts`. Keep database and server-only code out of this package.
 - Add React Email templates to `packages/emails/`.
-- Add tests under `tests/unit/`, `tests/integration/`, or `tests/e2e/` for the
-  matching test level.
 
 ## Next step
 

@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   checks:
-    uses: ./.github/workflows/testing.yaml
+    uses: ./.github/workflows/checks.yaml
 
   build:
     name: Build and publish image

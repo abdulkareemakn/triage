@@ -12,6 +12,6 @@ This is Triage, a university project built on a pnpm-workspace MERN starter. Rea
 
 - Keep changes small and follow existing patterns; check the affected package before adding dependencies or abstractions.
 - After code changes, run `pnpm format`, then `pnpm check` and `pnpm typecheck` from the workspace root.
-- Run the relevant tests for changed behavior: `pnpm test:unit`, `pnpm test:integration`, or both with `pnpm test`. Run tests for the affected package when possible; report any suite you could not run.
+- This repository does not include an automated test suite. Verify behavior through the workspace checks and report any check you could not run.
 - Do not use browser automation, screenshots, or manual browser checks for verification. Visual verification is the user's job.
-- For docs-only changes, skip application tests and run formatting/checks only when the edited files are in scope for those tools.
+- For docs-only changes, run formatting/checks only when the edited files are in scope for those tools.

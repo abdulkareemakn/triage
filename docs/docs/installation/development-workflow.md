@@ -1,12 +1,12 @@
 ---
 title: Development workflow
-description: The commands you run while building, including dev servers, type checking, formatting, and tests.
+description: The commands you run while building, including dev servers, type checking, and formatting.
 ---
 
 # Development workflow
 
 This starter kit gives each local service a fixed localhost port and keeps interactive tools in separate terminals. Return to this page while you work. The normal loop is simple: run the app,
-make one focused change, check it, then run the smallest test that can prove it works.
+make one focused change, then check it.
 
 ## Replace the starter landing page
 
@@ -26,7 +26,7 @@ code before using them.
 These setup steps are for the maintainer. Agents follow the root `AGENTS.md` rule
 to use `.env.example` for setting names and never read or write `.env`.
 
-The root `.env` file holds settings that change between your computer, tests, and a
+The root `.env` file holds settings that change between your computer and a
 production host. Copy the safe template once:
 
 === "Windows PowerShell"
@@ -47,8 +47,7 @@ Generate a value for `BETTER_AUTH_SECRET` and paste it into `.env`:
 node -e "console.log(require('node:crypto').randomBytes(32).toString('base64'))"
 ```
 
-`MONGODB_URI` identifies the application database. `TEST_MONGODB_URI` is deliberately
-separate because test runs create and remove temporary databases. `APP_URL` and
+`MONGODB_URI` identifies the application database. `APP_URL` and
 `BETTER_AUTH_URL` must be the same public origin in this starter. Do not put a secret,
 database URL, or API key in a variable beginning with `VITE_`: Vite exposes those to
 browser code.
@@ -159,29 +158,6 @@ Follow [File uploads](/build/file-uploads) to verify the configuration with a di
 PUT, confirmation, and private download. Receiving an upload URL alone does not
 verify bucket access.
 
-### Upload test database
-
-The upload integration tests read the test database address from the process
-environment, not from `.env`. Start the local MongoDB container with `pnpm db:up`,
-then run one of these commands from the repository root in the terminal that will
-run tests. Substitute a separate test server address if needed.
-
-=== "Windows PowerShell"
-
-    ```powershell
-    $env:TEST_MONGODB_URI = "mongodb://127.0.0.1:27017"
-    ```
-
-=== "macOS / Linux"
-
-    ```sh
-    export TEST_MONGODB_URI=mongodb://127.0.0.1:27017
-    ```
-
-The tests supply dummy storage settings and mock S3 network calls. Real bucket
-credentials are not needed. See [File uploads: Verify and troubleshoot](/build/file-uploads/#verify-and-troubleshoot)
-for the test commands and [Testing](/quality/testing/#mongodb) for MongoDB setup.
-
 ## Start the workspace
 
 ```sh
@@ -218,19 +194,6 @@ formatting changes and safe lint fixes. See [formatting](/quality/formatting),
 [linting](/quality/linting), and the official [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 and [Oxlint](https://oxc.rs/docs/guide/usage/linter) documentation.
 
-## Run the tests
-
-```sh
-pnpm test
-pnpm test:e2e
-```
-
-`pnpm test` runs the Vitest unit suite followed by the API integration suite.
-`pnpm test:e2e` runs the Playwright browser suite. Integration and E2E tests use
-separate randomly named databases when persistence is required. See
-[Commands](/reference/commands) and [Testing](/quality/testing) for the current test
-commands and database setup.
-
 ## Build and run
 
 ```sh
@@ -262,4 +225,3 @@ Related starter documentation:
 
 - [File uploads](/build/file-uploads)
 - [Commands](/reference/commands)
-- [Testing](/quality/testing)

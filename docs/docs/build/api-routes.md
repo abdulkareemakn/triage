@@ -1,6 +1,6 @@
 ---
 title: API Routes
-description: Build Express 5 API routes with shared response contracts, Zod request validation, and integration tests.
+description: Build Express 5 API routes with shared response contracts and Zod request validation.
 ---
 
 # API routes with Express
@@ -179,10 +179,9 @@ Axios sends JSON objects and rejects non-2xx responses by default. The caller ca
 
 ## Verify
 
-Add a Supertest integration test for the success response and every meaningful rejected boundary, then run:
+Exercise the success response and every meaningful rejected boundary from the client or an API client, then run:
 
 ```sh
-pnpm test:integration
 pnpm typecheck
 pnpm check
 ```

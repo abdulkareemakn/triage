@@ -147,7 +147,7 @@ This lets integration work use realistic email content without requiring provide
 
 1. Run `pnpm dev` once from the repository root.
 2. Write server code that calls `sendEmail()`.
-3. Trigger that code from the application or an integration test.
+3. Trigger that code from the application.
 4. Open `http://localhost:3003`.
 5. Inspect the subject, recipients, HTML, text, and links.
 
