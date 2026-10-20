@@ -316,10 +316,10 @@ export const MODELS = [
     summary:
       "The first single-page merge of the two finalists. Headers and footers are intentionally omitted so they can be designed separately.",
     knownIssues: [
-      "First merged composition; some explanatory sections deliberately overlap and should be trimmed after review.",
-      "The pinned reel and the call-and-response both use the same three fragments; decide which treatment earns its place.",
-      "Longcat's four color bands and Mimo's feature rows tell the same loop at different scales; the page currently keeps both for comparison.",
-      "The pinned reel is the heaviest interaction and needs a low-end device check.",
+      "Removal preview active: red dashed outlines and X badges mark the sections requested for removal; nothing has been deleted yet.",
+      "The kept 'See every feature' link currently targets the marked feature-rows section; retarget or remove that link when deletion is confirmed.",
+      "The closing CTA is being treated as the footer-equivalent; the page has no separate footer.",
+      "The pinned reel is the heaviest interaction and is marked for removal following review.",
     ],
     components: [
       {
