@@ -73,6 +73,12 @@
       "skillPath": "skills/database-schema-designer/SKILL.md",
       "computedHash": "6a26ca15216bb4bfee66ebf813edcb1e31a8002f3f641f16f550df814b522217"
     },
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "18f81679d2b0247ce9da298b03ed8e47ecd3c206f2951d70eefb1b65d3219345"
+    },
     "domain-name-brainstormer": {
       "source": "softaworks/agent-toolkit",
       "sourceType": "github",
