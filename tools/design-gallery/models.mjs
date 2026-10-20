@@ -307,7 +307,7 @@ export const MODELS = [
     label: "Combined",
     port: 4107,
     root: "combined",
-    branch: "model/combined-triage-marketing",
+    branch: "feat/tri-34-public-site",
     tag: "design-wall/combined",
     discarded: false,
     combined: true,
