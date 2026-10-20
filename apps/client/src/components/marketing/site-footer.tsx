@@ -1,12 +1,10 @@
 import { IconArrowUp } from "@tabler/icons-react";
-import { Link } from "@tanstack/react-router";
 
 import { WaitlistForm } from "@/components/combined/waitlist-form";
 
 const footerLinks = [
-  { to: "/features", label: "Features" },
-  { to: "/contact", label: "Contact" },
-  { to: "/sign-in", label: "Sign in" },
+  { href: "#board", label: "How it works" },
+  { href: "#faq", label: "Questions" },
 ] as const;
 
 const linkClass =
@@ -14,7 +12,7 @@ const linkClass =
 
 /**
  * The public close: a serif statement and a second waitlist entry, then
- * the credits and a low-contrast wordmark that runs off the page.
+ * the project note and a low-contrast wordmark that runs off the page.
  */
 export function SiteFooter() {
   return (
@@ -49,9 +47,9 @@ export function SiteFooter() {
               className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"
             >
               {footerLinks.map((link) => (
-                <Link key={link.to} to={link.to} className={linkClass}>
+                <a key={link.href} href={link.href} className={linkClass}>
                   {link.label}
-                </Link>
+                </a>
               ))}
             </nav>
             <div className="flex items-center gap-4 text-[11px] text-muted-foreground">

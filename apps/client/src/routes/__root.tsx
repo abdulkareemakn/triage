@@ -20,7 +20,7 @@ function RootLayout() {
       >
         Skip to content
       </a>
-      <SiteHeader />
+      {isLanding && <SiteHeader />}
       <main id="main" tabIndex={-1}>
         <Outlet />
       </main>

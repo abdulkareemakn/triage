@@ -10,9 +10,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-const mainLinks = [
-  { to: "/features", label: "Features" },
-  { to: "/contact", label: "Contact" },
+const sectionLinks = [
+  { href: "#board", label: "How it works" },
+  { href: "#faq", label: "Questions" },
 ] as const;
 
 const navLinkClass =
@@ -43,32 +43,27 @@ export function SiteHeader() {
           aria-label="Main navigation"
           className="hidden items-center gap-7 md:flex"
         >
-          {mainLinks.map((link) => (
-            <Link key={link.to} to={link.to} className={navLinkClass}>
+          {sectionLinks.map((link) => (
+            <a key={link.href} href={link.href} className={navLinkClass}>
               {link.label}
-            </Link>
+            </a>
           ))}
-          <Link to="/sign-in" className={navLinkClass}>
-            Sign in
-          </Link>
-          <Link
-            to="/"
-            hash="waitlist"
+          <a
+            href="#waitlist"
             className={buttonVariants({ size: "lg", className: "min-h-10" })}
           >
             Join the waitlist
-          </Link>
+          </a>
         </nav>
 
         <div className="flex items-center gap-3 md:hidden">
           <div className="hidden sm:block">
-            <Link
-              to="/"
-              hash="waitlist"
+            <a
+              href="#waitlist"
               className={buttonVariants({ size: "lg", className: "min-h-10" })}
             >
               Join the waitlist
-            </Link>
+            </a>
           </div>
 
           <Sheet open={open} onOpenChange={setOpen}>
@@ -84,27 +79,19 @@ export function SiteHeader() {
                   aria-label="Mobile navigation"
                   className="mt-10 flex flex-col items-start gap-6"
                 >
-                  {mainLinks.map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
+                  {sectionLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
                       onClick={() => setOpen(false)}
                       className={mobileLinkClass}
                     >
                       {link.label}
-                    </Link>
+                    </a>
                   ))}
-                  <Link
-                    to="/sign-in"
-                    onClick={() => setOpen(false)}
-                    className={mobileLinkClass}
-                  >
-                    Sign in
-                  </Link>
                 </nav>
-                <Link
-                  to="/"
-                  hash="waitlist"
+                <a
+                  href="#waitlist"
                   onClick={() => setOpen(false)}
                   className={buttonVariants({
                     size: "lg",
@@ -112,7 +99,7 @@ export function SiteHeader() {
                   })}
                 >
                   Join the waitlist
-                </Link>
+                </a>
               </div>
             </SheetContent>
           </Sheet>
