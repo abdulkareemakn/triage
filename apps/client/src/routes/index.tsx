@@ -11,9 +11,6 @@ import { useRevealOnScroll } from "@/components/marketing/motion";
 
 export const Route = createFileRoute("/")({
   component: CombinedPage,
-  head: () => ({
-    meta: [{ title: "Triage — Every report, reviewed." }],
-  }),
 });
 
 function CombinedPage() {

@@ -5,6 +5,11 @@ test("an unknown URL shows the 404 page and links back home", async ({
 }) => {
   await page.goto("/this-page-does-not-exist");
 
+  await expect(page).toHaveTitle("Page not found — Triage");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    "noindex",
+  );
   await expect(page.getByText("404", { exact: true })).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Page not found" }),

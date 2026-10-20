@@ -3,6 +3,15 @@ import { expect, test } from "@playwright/test";
 test("introduces Triage and collects waitlist emails", async ({ page }) => {
   await page.goto("/");
 
+  await expect(page).toHaveTitle("Triage — Every report, reviewed.");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "Triage turns incoming reports into ticket candidates your team reviews before they reach the tracker.",
+  );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    "content",
+    "/og-image.png",
+  );
   await expect(page.getByRole("banner")).toBeVisible();
   await expect(page.getByRole("link", { name: "Triage home" })).toBeVisible();
   await expect(
