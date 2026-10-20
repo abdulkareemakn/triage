@@ -69,7 +69,7 @@ export function SiteFooter() {
       </div>
 
       <div aria-hidden="true" className="select-none px-2">
-        <p className="translate-y-[0.12em] text-center text-[clamp(72px,23vw,320px)] leading-[0.72] font-semibold tracking-[-0.055em] text-foreground/[0.055] [text-shadow:0_1px_0_var(--background),0_-1px_0_color-mix(in_oklab,var(--foreground)_10%,transparent)]">
+        <p className="translate-y-[0.12em] text-center text-[clamp(72px,23vw,320px)] leading-[0.72] font-semibold tracking-[-0.055em] text-foreground/[0.14] [text-shadow:0_1px_0_var(--background)]">
           TRIAGE
         </p>
       </div>
