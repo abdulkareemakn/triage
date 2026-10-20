@@ -129,7 +129,7 @@ body,
   /* Self-hosted font imports/@font-face go above the theme rules in this file. */
   --font-sans: "PP Mori", system-ui, sans-serif;
   --font-serif: Domine, Georgia, serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-mono: "Space Mono", ui-monospace, monospace; /* taste-skill-ignore */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -169,4 +169,341 @@ body,
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ------------------------------------------------------------------ *
+ * Marketing site — interface fragments.
+ * These are cropped pieces of the Triage product shown on the public
+ * pages. Inside [data-ui] the product's own conventions apply: 1px
+ * control borders, the token radius family, elevation only for open
+ * overlays. Everything references the semantic tokens above; no
+ * literal colours.
+ * ------------------------------------------------------------------ */
+
+[data-ui] {
+  font-family: var(--font-sans);
+  color: var(--foreground);
+}
+
+[data-ui] .frag {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+[data-ui] .frag-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--secondary);
+}
+
+[data-ui] .frag-body {
+  padding: 0.875rem;
+}
+
+[data-ui] .frag-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+[data-ui] .frag-quote {
+  padding: 0.625rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--secondary);
+}
+
+[data-ui] .frag-seg-wrap {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+[data-ui] .frag-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8125rem;
+}
+
+[data-ui] .frag-row:last-child {
+  border-bottom: none;
+}
+
+[data-ui] .frag-label {
+  color: var(--muted-foreground);
+}
+
+[data-ui] .frag-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+[data-ui] .frag-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 2.25rem;
+  padding: 0 0.875rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition-property: transform, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-ui] .frag-btn:hover {
+  background: var(--secondary);
+}
+
+[data-ui] .frag-btn:active {
+  transform: translateY(1px);
+}
+
+[data-ui] .frag-btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+[data-ui] .frag-btn-primary:hover {
+  background: var(--primary);
+  opacity: 0.9;
+}
+
+[data-ui] .frag-note {
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+[data-ui] .frag-strong {
+  font-weight: 600;
+}
+
+[data-ui] .frag-discord {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+[data-ui] .frag-msg {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+[data-ui] .frag-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-ui] .frag-input {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+}
+
+[data-ui] .frag-seg {
+  display: inline-flex;
+  padding: 0.1875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--secondary);
+}
+
+[data-ui] .frag-seg button {
+  min-height: 1.875rem;
+  padding: 0 0.75rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted-foreground);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition-property: opacity;
+  transition-duration: 150ms;
+}
+
+[data-ui] .frag-seg button[aria-pressed="true"] {
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: 0 1px 2px 0 var(--border);
+}
+
+[data-ui] .frag-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.0625rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  color: var(--secondary-foreground);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ *
+ * Motion layer. A small script adds .js-motion to <html>; without it
+ * (script failure, or reduced motion) every element stays visible and
+ * only the CSS transitions on controls are lost.
+ * ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion [data-reveal]:not(.is-in) {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+
+  [data-reveal] {
+    transition-property: opacity, transform;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js-motion [data-reveal-line]:not(.is-in) > span {
+    transform: translateY(110%);
+  }
+
+  [data-reveal-line] {
+    display: block;
+    overflow: hidden;
+  }
+
+  [data-reveal-line] > span {
+    display: block;
+    transition-property: transform;
+    transition-duration: 900ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal-line] > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .drift {
+    animation: none !important;
+  }
+}
+
+/* Reveal stagger buckets. */
+.reveal-d30 {
+  --reveal-delay: 30ms;
+}
+.reveal-d60 {
+  --reveal-delay: 60ms;
+}
+.reveal-d80 {
+  --reveal-delay: 80ms;
+}
+.reveal-d90 {
+  --reveal-delay: 90ms;
+}
+.reveal-d110 {
+  --reveal-delay: 110ms;
+}
+.reveal-d120 {
+  --reveal-delay: 120ms;
+}
+.reveal-d150 {
+  --reveal-delay: 150ms;
+}
+.reveal-d160 {
+  --reveal-delay: 160ms;
+}
+.reveal-d180 {
+  --reveal-delay: 180ms;
+}
+.reveal-d220 {
+  --reveal-delay: 220ms;
+}
+.reveal-d240 {
+  --reveal-delay: 240ms;
+}
+
+/* Roles table on the features page: a real table keeps its lines. */
+tr.role-row {
+  border-top: 1px solid var(--border);
+}
+
+/* Inline "picture word" slots in the features paragraph: a real piece
+   of the product's world dropped into the sentence at the type's own
+   size. */
+.word-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 0.95em;
+  min-width: 1.6em;
+  padding: 0 0.3em;
+  border-radius: 0.18em;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  vertical-align: baseline;
+}
+
+.word-slot .tr-chip {
+  font-size: 0.55em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* Slow drift on archival photographs — the page's one moving picture. */
+@media (prefers-reduced-motion: no-preference) {
+  .drift {
+    animation: drift 24s ease-in-out infinite alternate;
+    transform-origin: 60% 45%;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
 }

@@ -1,301 +1,385 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { IconBrandDiscord, IconMessage } from "@tabler/icons-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 
+import {
+  CandidateFragment,
+  DecisionFragment,
+  IntakeFragment,
+  WorkspaceDialogFragment,
+  type ReelStep,
+} from "@/components/marketing/fragments";
+import {
+  MaskedLine,
+  Reveal,
+  useRevealOnScroll,
+} from "@/components/marketing/motion";
 import { buttonVariants } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({ component: Home });
 
-const repository = "https://github.com/abdulkareemakn/mern-app-starter";
-const docs = "https://mern-app-starter.pages.dev";
-const setupGuide = `${docs}/installation/`;
-const productName = "Launchpad";
-const externalLogos: Record<string, string> = {
-  react: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/react.svg",
-  bucket: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/backblaze.svg",
-  "better-auth":
-    "https://raw.githubusercontent.com/better-auth/better-auth/v1.7.5/docs/public/branding/svg/better-auth-mark-bg-light.svg",
-  oxc: "https://cdn.jsdelivr.net/gh/oxc-project/oxc-assets@main/icon-flat-light.svg",
-  vitest: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/vitest.svg",
-};
-const linkStyle =
-  "inline-flex min-h-11 items-center underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground";
-const primaryAction = buttonVariants({
-  size: "lg",
-  className:
-    "min-h-11 px-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground motion-reduce:transition-none motion-reduce:active:translate-y-0",
-});
+const steps: { id: ReelStep; label: string }[] = [
+  { id: "report", label: "Report" },
+  { id: "candidate", label: "Candidate" },
+  { id: "decision", label: "Decision" },
+];
 
-const chapters = [
+const fragments: Record<ReelStep, ReactNode> = {
+  report: <IntakeFragment />,
+  candidate: <CandidateFragment />,
+  decision: <DecisionFragment />,
+};
+
+const columns = [
   {
-    title: "Build the application",
-    description: "The foundations for your first feature.",
-    start: 1,
-    features: [
-      {
-        title: "shadcn/ui & design-md",
-        description:
-          "Base UI components, Tailwind styling, and a documented design system for shaping your interface.",
-        logo: "react",
-      },
-      {
-        title: "MongoDB & Mongoose",
-        description:
-          "A shared MongoDB connection, Mongoose model conventions, local database setup, and shared API and client types.",
-        logo: "mongodb",
-      },
-      {
-        title: "Better Auth",
-        description:
-          "Email and password authentication, database-backed sessions and rate limiting, plus protected API routes.",
-        logo: "better-auth",
-      },
-      {
-        title: "Zod validation",
-        description:
-          "Reusable schemas validate app configuration, request bodies, query parameters, and route parameters.",
-        logo: "zod",
-      },
-    ],
+    runIn: "Who it is for.",
+    text: "Small and medium software teams with more incoming reports than the person triaging them can hold in their head. One reviewer per workspace is enough to start.",
   },
   {
-    title: "Connect your services",
-    description: "Email, files, and the work behind the scenes.",
-    start: 5,
-    features: [
-      {
-        title: "Resend & local email",
-        description:
-          "Send production email with Resend, capture local messages in MailDev, and preview templates with React Email.",
-        logo: "resend",
-      },
-      {
-        title: "Object storage",
-        description:
-          "Private S3-compatible uploads with signed URLs, ownership checks, upload confirmation, and private downloads.",
-        logo: "bucket",
-      },
-      {
-        title: "Reusable middleware",
-        description:
-          "Shared Express middleware handles session checks, request validation, and consistent API errors.",
-        logo: "express",
-      },
-    ],
+    runIn: "What a workspace holds.",
+    text: "The submitted text exactly as it arrived, the ticket candidates drafted from it, and every review decision with the reviewer and the time it was made.",
   },
   {
-    title: "Ship and maintain",
-    description: "A path from your laptop to deployment.",
-    start: 8,
-    features: [
-      {
-        title: "Deno Deploy",
-        description:
-          "Build and runtime configuration deploys the React client and Express API together.",
-        logo: "deno",
-      },
-      {
-        title: "Docker & Compose",
-        description:
-          "Compose files provide local MongoDB and storage services, plus a production app and database stack.",
-        logo: "docker",
-      },
-      {
-        title: "Formatting & linting",
-        description:
-          "Shared Oxfmt and Oxlint configuration keeps code formatted and catches common issues across the workspace.",
-        logo: "oxc",
-      },
-      {
-        title: "Unit, integration & end-to-end tests",
-        description:
-          "Vitest unit and API integration tests, Playwright end-to-end tests, and MongoDB-backed CI workflows.",
-        logo: "vitest",
-      },
-      {
-        title: "GitHub Actions",
-        description:
-          "Automated workflows run tests, build the Docker image, and publish the documentation site.",
-        logo: "githubactions",
-      },
-    ],
+    runIn: "Where reports come from.",
+    text: "Typed into Triage by hand, or imported from a connected Discord channel. Every new message after connecting comes in; older history stays where it was.",
+  },
+  {
+    runIn: "How to start.",
+    text: "Name a workspace, invite people with a link or a code, and put the next report through. Roles are submitter, reviewer, and admin.",
   },
 ] as const;
 
-function Home() {
-  return (
-    <div className="min-h-screen bg-background text-foreground">
-      <a
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-6 focus:z-10 focus:rounded-md focus:bg-background focus:p-4 focus:outline-2"
-        href="#main"
-      >
-        Skip to content
-      </a>
-      <header className="mx-auto flex max-w-none flex-wrap items-center justify-between gap-x-8 gap-y-2 border-b px-6 py-5 sm:px-10 lg:px-16 xl:px-20">
-        <a className={`${linkStyle} gap-3 font-medium tracking-tight`} href="/">
-          <img
-            src="/launchpad.svg"
-            alt=""
-            width="32"
-            height="32"
-            className="size-8 shrink-0 dark:invert"
-          />
-          <span>{productName}</span>
-          <span className="font-normal text-muted-foreground">
-            MERN starter
-          </span>
-        </a>
-        <nav
-          aria-label="Main navigation"
-          className="flex flex-wrap gap-x-6 text-sm"
-        >
-          <a
-            className={`${linkStyle} min-w-11 justify-center`}
-            href={repository}
-            aria-label="GitHub"
-          >
-            <img
-              src="https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/github.svg"
-              alt=""
-              aria-hidden="true"
-              className="size-5"
-            />
-          </a>
-        </nav>
-      </header>
+const staggerBuckets = [undefined, 80, 160, 240] as const;
 
-      <main id="main" tabIndex={-1}>
-        <section className="mx-auto max-w-none px-6 pt-12 pb-16 sm:px-10 sm:pt-16 sm:pb-20 lg:px-16 xl:px-20">
-          <h1 className="max-w-5xl text-4xl leading-[1.12] font-medium tracking-[-0.035em] text-balance sm:text-5xl lg:text-6xl">
-            Build something worth submitting.
-            <span className="mt-1 block text-muted-foreground">
-              Everything you need to get started.
+function Home() {
+  useRevealOnScroll();
+  const heroRef = useRef<HTMLElement>(null);
+  const [step, setStep] = useState(0);
+
+  // The pinned run is the scrollable distance of the sticky hero. Zero
+  // on narrow screens, where the reel is stepped by the buttons only.
+  const pinnedRun = useCallback(() => {
+    const el = heroRef.current;
+    if (!el) return 0;
+    const total = el.offsetHeight - window.innerHeight;
+    return total > 100 ? total : 0;
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = heroRef.current;
+      const total = pinnedRun();
+      if (!el || !total) return;
+      const progress = Math.min(
+        Math.max(-el.getBoundingClientRect().top / total, 0),
+        1,
+      );
+      setStep(Math.min(2, Math.round(progress * 2)));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pinnedRun]);
+
+  const goToStep = (index: number) => {
+    const el = heroRef.current;
+    const total = pinnedRun();
+    if (el && total) {
+      const top = window.scrollY + el.getBoundingClientRect().top;
+      window.scrollTo({
+        top: top + (index / 2) * total,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
+    } else {
+      setStep(index);
+    }
+  };
+
+  return (
+    <>
+      {/* Hero: the sentence split by a frame. The two halves hold their
+          place while a reel of working product fragments passes between
+          them, stepped by scroll or by the buttons. */}
+      <section
+        ref={heroRef}
+        aria-label="A report lands, a person decides"
+        className="relative md:h-[280svh]"
+      >
+        <div className="relative flex flex-col gap-10 px-5 py-12 sm:px-8 md:sticky md:top-0 md:h-svh md:justify-center md:gap-0 md:py-0">
+          <h1 className="flex flex-col md:w-full md:flex-row md:items-baseline md:justify-between">
+            <span className="block text-[clamp(2.25rem,8vw,3.5rem)] leading-[1.05] font-medium tracking-tight md:w-[28vw]">
+              <MaskedLine>A report lands.</MaskedLine>
+            </span>
+            <span className="block text-right text-[clamp(2.25rem,8vw,3.5rem)] leading-[1.05] font-medium tracking-tight md:w-[28vw]">
+              <MaskedLine delay={110}>A person decides.</MaskedLine>
             </span>
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
-            Launchpad gives you a production grade MERN stack foundation with
-            the setup, services, and decisions documented. Spend your time
-            building your product instead of setting up services.
-          </p>
-          <p className="mt-5 text-sm text-muted-foreground">
-            MongoDB · Express · React · Node.js
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <a className={primaryAction} href={setupGuide}>
-              Documentation
-            </a>
-            <a className={`${linkStyle} text-sm font-medium`} href={repository}>
-              View source
-            </a>
-          </div>
-        </section>
 
-        <section
-          id="included"
-          aria-labelledby="included-title"
-          className="mx-auto max-w-none scroll-mt-6 px-6 sm:px-10 lg:px-16 xl:px-20"
-        >
-          <div className="border-t pt-8">
-            <h2
-              id="included-title"
-              className="text-2xl font-medium tracking-tight sm:text-3xl"
-            >
-              What's included
-            </h2>
-            <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-              A practical starting point, from interface to deployment. Each
-              guide shows you where to begin and what to configure.
-            </p>
-          </div>
-          {chapters.map((chapter) => (
-            <section
-              key={chapter.title}
-              aria-labelledby={`chapter-${chapter.start}`}
-              className="grid gap-8 py-10 sm:py-12 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16"
-            >
-              <div>
-                <h3
-                  id={`chapter-${chapter.start}`}
-                  className="text-lg font-medium tracking-tight"
-                >
-                  {chapter.title}
-                </h3>
-                <p className="mt-2 max-w-60 text-sm leading-6 text-muted-foreground">
-                  {chapter.description}
-                </p>
-              </div>
-              <ol className="divide-y divide-border border-y border-border">
-                {chapter.features.map(({ title, description, logo }, index) => (
-                  <li
-                    key={title}
-                    className="grid gap-3 py-5 md:grid-cols-[minmax(15rem,0.9fr)_minmax(0,1.5fr)] md:items-center md:gap-8 lg:gap-12"
-                  >
-                    <div className="grid min-w-0 grid-cols-[1.5rem_3rem_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[2rem_3.5rem_minmax(0,1fr)] sm:gap-4">
-                      <span
-                        aria-hidden="true"
-                        className="font-mono text-xs text-muted-foreground"
-                      >
-                        {String(chapter.start + index).padStart(2, "0")}
-                      </span>
-                      <div className="flex size-12 items-center justify-center rounded-lg bg-muted p-3 sm:size-14">
-                        {logo ? (
-                          <img
-                            src={externalLogos[logo] ?? `/brands/${logo}.svg`}
-                            alt=""
-                            aria-hidden="true"
-                            className="size-full object-contain"
-                          />
-                        ) : null}
-                      </div>
-                      <h4 className="min-w-0 text-base leading-snug font-medium tracking-tight sm:text-lg">
-                        {title}
-                      </h4>
-                    </div>
-                    <p className="text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
-                      {description}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          ))}
-        </section>
-      </main>
-
-      <footer className="border-t">
-        <div className="mx-auto grid max-w-none gap-8 px-6 py-10 sm:px-10 lg:px-16 xl:px-20">
-          <div className="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-start">
-            <div>
-              <a
-                className={`${linkStyle} gap-3 font-medium tracking-tight`}
-                href="/"
-                aria-label={`${productName} home`}
+          {/* The frame: a slice of the product, centred between the
+              halves of the sentence, holding the reel. */}
+          <div className="mx-auto w-full max-w-md md:absolute md:top-1/2 md:left-1/2 md:w-[35vw] md:max-w-none md:-translate-x-1/2 md:-translate-y-1/2">
+            <div className="relative overflow-hidden rounded-md bg-card md:aspect-video">
+              {/* The neighbouring frames show as slivers at the edges. */}
+              <div
+                aria-hidden="true"
+                className="relative h-10 overflow-hidden bg-card opacity-60 md:h-15"
               >
-                <img src="/launchpad.svg" alt="" className="size-9" />
-                <span className="text-lg">{productName}</span>
-              </a>
-              <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
-                A complete starter kit for the MERN stack.
-              </p>
+                <div className="absolute inset-x-0 bottom-0">
+                  {step > 0 ? fragments[steps[step - 1].id] : null}
+                </div>
+              </div>
+              <div className="relative p-3 sm:p-4">
+                <div aria-live="polite">{fragments[steps[step].id]}</div>
+              </div>
+              <div
+                aria-hidden="true"
+                className="relative h-10 overflow-hidden bg-card opacity-60 md:h-15"
+              >
+                <div className="absolute inset-x-0 top-0">
+                  {step < 2 ? fragments[steps[step + 1].id] : null}
+                </div>
+              </div>
             </div>
-            <nav
-              aria-label="Footer navigation"
-              className="flex flex-col items-start gap-3 text-sm sm:items-end"
-            >
-              <a className={linkStyle} href={docs}>
-                Documentation
-              </a>
-              <a className={linkStyle} href={repository}>
-                GitHub
-              </a>
-            </nav>
+
+            {/* The live control: step the reel with a thumb. */}
+            <fieldset className="mt-4 border-none p-0">
+              <legend className="sr-only">Step through the triage flow</legend>
+              <div className="flex items-center justify-center gap-2">
+                {steps.map((s, index) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    aria-pressed={step === index}
+                    onClick={() => goToStep(index)}
+                    className="min-h-11 rounded-md border border-border bg-card px-4 text-sm font-medium transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground"
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t pt-5 text-sm">
-            <p className="text-muted-foreground">© 2026 Abdul Kareem</p>
-            <a className={linkStyle} href={`${repository}/blob/main/LICENSE`}>
-              MIT License
-            </a>
+
+          {/* On narrow screen these sit under the frame; on a wide
+              screen they anchor to the bottom-left corner. */}
+          <div className="md:absolute md:bottom-10 md:left-8 md:max-w-sm">
+            <p className="text-base leading-6 text-muted-foreground sm:text-lg md:text-base">
+              Triage turns the reports arriving in your channels into ticket
+              candidates, and gives a reviewer the final word before anything
+              becomes work.
+            </p>
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <Link to="/sign-up" className={buttonVariants()}>
+                Create a workspace
+              </Link>
+              <Link
+                to="/features"
+                className="text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+              >
+                See what it does
+              </Link>
+            </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      {/* How it works: call and response column. */}
+      <section
+        aria-labelledby="how-heading"
+        className="px-5 py-20 sm:px-8 md:py-28"
+      >
+        <div className="mx-auto max-w-2xl md:ml-[25%]">
+          <Reveal>
+            <h2
+              id="how-heading"
+              className="text-2xl font-semibold tracking-tight sm:text-3xl"
+            >
+              From report to decision
+            </h2>
+          </Reveal>
+
+          <ol className="mt-14 list-none space-y-16 md:space-y-20">
+            <li>
+              <Reveal>
+                <p className="text-lg leading-7 font-medium">
+                  First, the report comes in.
+                </p>
+                <div className="mt-4 rounded-md bg-muted p-5">
+                  <p className="text-sm leading-6">
+                    “Checkout page freezes after applying a discount code —
+                    happens on Safari, two customers so far today.”
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={90} className="mt-6 md:ml-14">
+                <IntakeFragment compact />
+              </Reveal>
+            </li>
+
+            <li>
+              <Reveal>
+                <p className="text-lg leading-7 font-medium">
+                  Then a candidate takes shape.
+                </p>
+                <div className="mt-4 rounded-md bg-muted p-5">
+                  <p className="text-sm leading-6">
+                    Title: “Discount code freezes checkout on Safari” · Area:
+                    Checkout
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={90} className="mt-6 md:ml-14">
+                <CandidateFragment />
+              </Reveal>
+            </li>
+
+            <li>
+              <Reveal>
+                <p className="text-lg leading-7 font-medium">
+                  Then a person decides.
+                </p>
+              </Reveal>
+              {/* The final response breaks out of the column. */}
+              <Reveal delay={90} className="mt-6 md:-ml-14 md:w-[130%]">
+                <DecisionFragment />
+              </Reveal>
+              <Reveal delay={180} className="mt-6">
+                <p className="text-sm leading-6 text-muted-foreground">
+                  The approval is recorded inside Triage with its reviewer and
+                  time, and the decision is posted back to the Discord channel
+                  your team already reads.
+                </p>
+              </Reveal>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      {/* Features: one paragraph with picture words. Each slot is a real
+          piece of the product's world dropped into the sentence. */}
+      <section
+        aria-label="What Triage does"
+        className="bg-secondary px-5 py-20 sm:px-8 md:py-28"
+      >
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <p className="text-[clamp(1.375rem,2.6vw,2.25rem)] leading-[1.3] font-medium tracking-tight">
+              Triage takes the reports{" "}
+              <span className="word-slot" aria-hidden="true">
+                <IconMessage size={18} stroke={2} />
+              </span>{" "}
+              your team already sends, in Discord{" "}
+              <span className="word-slot" aria-hidden="true">
+                <IconBrandDiscord size={18} stroke={2} />
+              </span>
+              , in a text box, and turns each one into a candidate{" "}
+              <span className="word-slot" aria-hidden="true">
+                <span className="tr-chip">Draft</span>
+              </span>{" "}
+              a person reviews, names the duplicates{" "}
+              <span className="word-slot" aria-hidden="true">
+                <span className="tr-chip">0.86</span>
+              </span>{" "}
+              it recognises, and answers back to the channel it came from.
+            </p>
+          </Reveal>
+          <Reveal delay={120} className="mt-10 md:ml-[58%]">
+            <p className="text-base leading-6 text-muted-foreground">
+              The whole loop, written out.
+            </p>
+            <Link
+              to="/features"
+              className={`${buttonVariants({ variant: "outline" })} mt-4`}
+            >
+              See every feature
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Intro: a lead line over four columns, beside the sorting room. */}
+      <section
+        aria-label="About Triage"
+        className="px-5 py-20 sm:px-8 md:py-24"
+      >
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="max-w-3xl text-[clamp(1.375rem,2.4vw,2rem)] leading-[1.25]">
+              Reports arrive as messages. Work starts as tickets. Triage is the
+              desk between the two, where a person decides what becomes work and
+              what does not.
+            </p>
+          </Reveal>
+
+          <figure className="mt-12">
+            <img
+              src="/photos/wellington-sorting-room.jpg"
+              alt="clerks sorting letters into racks and mail bags in a large hall"
+              width="3067"
+              height="2310"
+              loading="lazy"
+              decoding="async"
+              className="drift aspect-[21/9] w-full rounded-md object-cover"
+            />
+            <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
+              Sorting incoming things is an old job. General Post Office mail
+              sorting room, Wellington, c.1900s. Archives New Zealand, CC BY-SA
+              2.0, via Wikimedia Commons.
+            </figcaption>
+          </figure>
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {columns.map((column, index) => (
+              <Reveal key={column.runIn} delay={staggerBuckets[index]}>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  <span className="font-semibold text-foreground">
+                    {column.runIn}{" "}
+                  </span>
+                  {column.text}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA: the first step of the product, already open. */}
+      <section
+        aria-labelledby="cta-heading"
+        className="bg-accent px-5 py-20 text-accent-foreground sm:px-8 md:py-0"
+      >
+        <div className="mx-auto grid max-w-6xl items-center gap-12 md:min-h-[84svh] md:grid-cols-2">
+          <div>
+            <Reveal>
+              <h2
+                id="cta-heading"
+                className="text-[clamp(2.75rem,6vw,5rem)] leading-[0.95] font-semibold tracking-tight"
+              >
+                Start with
+                <br />
+                one report.
+              </h2>
+              <p className="mt-6 max-w-sm text-base leading-6">
+                Name a workspace, invite your reviewers, and put the next report
+                through. Nothing is filed until a person approves it.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal delay={120} className="md:justify-self-end">
+            <div className="w-full max-w-sm">
+              <WorkspaceDialogFragment />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </>
   );
 }
