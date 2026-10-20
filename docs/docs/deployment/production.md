@@ -178,7 +178,7 @@ Generate it once for the environment. Replacing it later invalidates existing se
 IaC supplies `MONGODB_URI` and all five storage variables automatically. Do not copy
 bucket access keys manually. Storage limits, allowed MIME types, and proxy settings
 are described in [Development workflow](/installation/development-workflow/#environment-variables).
-The local test database and MailDev settings are not production requirements.
+MailDev settings are not production requirements.
 
 Redeploy after completing the settings:
 
@@ -271,7 +271,7 @@ reach `SUCCESS`, the homepage responds, and `/api/health` returns HTTP 200 with
 A successful build or deployment status alone does not establish public reachability.
 
 Create an account, sign in, and exercise a protected API route. Verify file upload,
-confirmation, and private download, and test delivery from a verified Resend sending
+confirmation, and private download, and verify delivery from a verified Resend sending
 domain for application features that send email. Inspect Railway usage and arrange
 backups for persistent data before relying on the deployment.
 

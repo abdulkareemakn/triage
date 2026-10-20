@@ -27,8 +27,6 @@ Run this checklist before exposing an environment to real users.
 
 - [ ] MongoDB is not publicly reachable.
 - [ ] Backups exist for the database volume.
-- [ ] The integration test database has permission to be created and dropped, and the
-      application database does not rely on that permission.
 
 ## Application code
 

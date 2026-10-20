@@ -17,7 +17,7 @@ From the repository root:
 docker build -t mern-template .
 ```
 
-Pushes, pull requests, and manual runs start `.github/workflows/docker.yaml`. It calls the reusable checks workflow for formatting, linting, unit tests, integration tests, and end-to-end tests. After all checks pass, Buildx builds the production image and caches layers. Runs on the default branch publish `ghcr.io/<owner>/<repository>` with `sha-<full-commit-sha>` and `latest` tags; pull requests and other branches only build. Publishing uses the built-in `GITHUB_TOKEN` with package write permission and needs no additional registry secret. GHCR stores the image; deploying it to a running host is a separate step.
+Pushes, pull requests, and manual runs start `.github/workflows/docker.yaml`. It calls the reusable checks workflow for formatting and linting. After all checks pass, Buildx builds the production image and caches layers. Runs on the default branch publish `ghcr.io/<owner>/<repository>` with `sha-<full-commit-sha>` and `latest` tags; pull requests and other branches only build. Publishing uses the built-in `GITHUB_TOKEN` with package write permission and needs no additional registry secret. GHCR stores the image; deploying it to a running host is a separate step.
 
 Actions are pinned to commit SHAs. The Node base image and MongoDB and RustFS service images are pinned to manifest digests. Update these pins regularly to receive security fixes.
 

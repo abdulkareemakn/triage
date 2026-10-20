@@ -41,8 +41,8 @@ The `better-*` skills are present in Triage's `.agents/skills/` directory.
 | `terms-page-generator`        | Terms of Service and user-agreement pages |
 
 Use a skill when the task matches its scope. The repository code and `DESIGN.md`
-remain the source of truth, and skills do not replace formatting, linting,
-typechecking, or tests.
+remain the source of truth, and skills do not replace formatting, linting, or
+typechecking.
 
 ## References
 

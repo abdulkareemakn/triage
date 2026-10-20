@@ -36,22 +36,18 @@ The root config treats correctness diagnostics as errors and enables Oxlint's na
     "import",
     "react",
     "jsx-a11y",
-    "vitest",
     "node"
   ],
   "categories": {
     "correctness": "error"
   },
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "vitest/no-standalone-expect": "off",
-    "vitest/require-mock-type-parameters": "off",
-    "vitest/require-to-throw-message": "off"
+    "react/react-in-jsx-scope": "off"
   }
 }
 ```
 
-The React rule is disabled because this project uses the automatic JSX runtime. Three Vitest rules are disabled because they reject valid hooks, untyped mock inference, and intentional error-only assertions already used by the tests. The plugins are built into Oxlint, so they do not require separate npm packages.
+The React rule is disabled because this project uses the automatic JSX runtime. The plugins are built into Oxlint, so they do not require separate npm packages.
 
 Generated routes, generated documentation, and agent tooling are ignored. Keep lasting workspace policy in the root config instead of adding package-local files.
 

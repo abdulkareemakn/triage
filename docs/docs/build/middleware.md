@@ -125,7 +125,7 @@ app.patch(
 
 It returns `400` with structured Zod errors when parsing fails. On success, parsed output is stored in `res.locals.validated`. Keeping it in `res.locals` is important because Express 5 exposes `req.query` through a getter and it should not be overwritten.
 
-See [Validation](/build/validation) for schemas, errors, inference, and tests.
+See [Validation](/build/validation) for schemas, errors, and inference.
 
 ### Write a small custom middleware
 
@@ -146,7 +146,7 @@ export const requireJson: RequestHandler = (req, res, next) => {
 
 Keep middleware focused. Business logic belongs in the route or feature code, while reusable trust-boundary checks belong here.
 
-## Errors and verification
+## Errors
 
 ### Error handling
 
@@ -160,15 +160,6 @@ Expected failures should be answered where they are understood:
 - the API catch-all returns `404`.
 
 The central handler is the fallback for malformed JSON, oversized bodies, and unexpected failures.
-
-### Test middleware
-
-Middleware is best tested through a small Express app with Supertest. Verify both branches: rejected requests return the expected status and accepted requests reach a handler with the expected `res.locals` value.
-
-```sh
-pnpm test:integration
-pnpm typecheck
-```
 
 ## References
 

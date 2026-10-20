@@ -6,10 +6,7 @@
     "dev": "node --import ./alias-runtime.js --env-file-if-exists=../../.env --watch src/index.ts",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "start": "node --import ./alias-runtime.js --env-file-if-exists=../../.env dist/index.js",
-    "test": "vitest run --root ../.. --config vitest.config.ts tests/unit",
-    "test:unit": "vitest run --root ../.. --config vitest.config.ts tests/unit",
-    "test:integration": "vitest run --root ../.. --config vitest.config.ts tests/integration"
+    "start": "node --import ./alias-runtime.js --env-file-if-exists=../../.env dist/index.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1138.0",
@@ -27,9 +24,6 @@
     "@types/express": "^5.0.6",
     "@types/mime-types": "^3.0.1",
     "@types/node": "^24.0.0",
-    "@types/nodemailer": "^8.0.2",
-    "@types/supertest": "^7.2.1",
-    "supertest": "^7.2.2",
-    "vitest": "^5.0.1"
+    "@types/nodemailer": "^8.0.2"
   }
 }

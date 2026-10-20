@@ -58,7 +58,7 @@ Press Ctrl+C in either terminal to stop that command. Vite's interactive keyboar
 
 Open [http://localhost:3000](http://localhost:3000), create an account, and
 select **Test protected API** after signing in. The client proxies `/api` to
-Express, so use the client URL rather than the API URL for browser testing.
+Express, so use the client URL rather than the API URL when opening it in a browser.
 
 ## Next steps
 

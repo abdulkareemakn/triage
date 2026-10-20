@@ -19,15 +19,9 @@ const origin = (key: string) =>
 
 const envSchema = z
   .object({
-    NODE_ENV: z
-      .enum(["development", "test", "production"])
-      .default("development"),
+    NODE_ENV: z.enum(["development", "production"]).default("development"),
     PORT: z.coerce.number().int().min(1).max(65535).default(3001),
     MONGODB_URI: z
-      .string()
-      .regex(/^mongodb(?:\+srv)?:\/\//)
-      .optional(),
-    TEST_MONGODB_URI: z
       .string()
       .regex(/^mongodb(?:\+srv)?:\/\//)
       .optional(),
@@ -79,13 +73,11 @@ const envSchema = z
           });
       }
     }
-    const mongodbKey =
-      env.NODE_ENV === "test" ? "TEST_MONGODB_URI" : "MONGODB_URI";
-    if (!env[mongodbKey])
+    if (!env.MONGODB_URI)
       context.addIssue({
         code: "custom",
-        path: [mongodbKey],
-        message: `${mongodbKey} is required when NODE_ENV=${env.NODE_ENV}`,
+        path: ["MONGODB_URI"],
+        message: `MONGODB_URI is required when NODE_ENV=${env.NODE_ENV}`,
       });
     if (env.NODE_ENV === "production" && !env.RESEND_API_KEY)
       context.addIssue({
@@ -115,8 +107,7 @@ export function readConfig(env: NodeJS.ProcessEnv) {
   }
 
   const parsed = result.data;
-  const mongodbUri =
-    parsed.NODE_ENV === "test" ? parsed.TEST_MONGODB_URI : parsed.MONGODB_URI;
+  const mongodbUri = parsed.MONGODB_URI;
   if (!mongodbUri) throw new Error("Invalid environment configuration");
   return {
     nodeEnv: parsed.NODE_ENV,

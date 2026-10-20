@@ -70,7 +70,7 @@ Mongoose constraints still protect writes from other code paths.
 
 ## Verify
 
-Add an integration check for a valid widget name and for whitespace-only input. Confirm that the saved name is trimmed and the invalid request never writes a record. Then run `pnpm test:integration` and `pnpm typecheck`.
+Confirm that a valid widget name is saved trimmed and that whitespace-only input is rejected without writing a record. Then run `pnpm typecheck`.
 
 ## Next step
 

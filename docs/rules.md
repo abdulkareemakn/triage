@@ -82,7 +82,7 @@ This site preserves the original starter's technical guides for Triage contribut
 ### 7. Repository and technical accuracy
 
 53. Treat the current Triage repository as the source of truth for shipped behavior.
-54. Verify every path, script, environment variable, port, endpoint, package, generated file, test command, and deployment claim against the current repository.
+54. Verify every path, script, environment variable, port, endpoint, package, generated file, and deployment claim against the current repository.
 55. Inspect the relevant implementation and its callers before documenting a pattern.
 56. Distinguish existing code from code the reader is being asked to create.
 57. Keep examples consistent across pages so one example feature can flow from schema to model, API, and client without contradictory names or shapes.
@@ -106,7 +106,7 @@ This site preserves the original starter's technical guides for Triage contribut
 72. shadcn/ui must explain that the CLI copies editable source into the repository and that Base UI supplies the underlying accessible primitives.
 73. API routes must explain the request and response contract before middleware and handler details.
 74. Client pages must explain file-based routing and generated route types before route APIs.
-75. Testing must explain the purpose and cost of unit, integration, and end-to-end tests before listing commands.
+75. Code quality must explain formatting, linting, and type checking before listing commands.
 76. Deployment must start with the supported choices and their tradeoffs, then lead into provider-specific instructions.
 
 ### 9. References and maintenance

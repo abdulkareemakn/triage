@@ -126,20 +126,9 @@ widgetSchema.index({ ownerId: 1, name: 1 }, { unique: true });
 
 A unique index is the final protection against concurrent duplicate writes. Handle duplicate-key errors as an expected conflict instead of exposing the raw database error.
 
-## Test databases
-
-Integration and E2E tests use `TEST_MONGODB_URI`, then create a random `mern_test_*` or `mern_e2e_*` database. They never fall back to the application database.
-
-```bash
-TEST_MONGODB_URI=mongodb://127.0.0.1:27017
-```
-
-The configured MongoDB user must be allowed to create and drop those temporary databases.
-
 ## Verify
 
 ```sh
-pnpm test:integration
 pnpm typecheck
 ```
 

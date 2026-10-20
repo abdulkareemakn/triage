@@ -43,9 +43,9 @@ Check `apps/client/package.json` and `apps/client/components.json` for the curre
 
 Check `apps/server/package.json` for versions. `compose.db.yaml` and `compose.yaml` select the MongoDB image.
 
-## Email, tests, and deployment
+## Email and deployment
 
-`packages/emails/package.json` defines React Email; `packages/mail/package.json` defines MailDev. The root and server manifests define Oxfmt, Oxlint, Vitest, Supertest, and Playwright. `Dockerfile` builds the production image; Railway builds it from GitHub. The root manifest includes the Railway CLI and IaC SDK. `compose.yaml` defines the local container path. See [Railway deployment](/deployment/production) for infrastructure and production configuration.
+`packages/emails/package.json` defines React Email; `packages/mail/package.json` defines MailDev. The root manifest defines Oxfmt and Oxlint. `Dockerfile` builds the production image; Railway builds it from GitHub. The root manifest includes the Railway CLI and IaC SDK. `compose.yaml` defines the local container path. See [Railway deployment](/deployment/production) for infrastructure and production configuration.
 
 For the exact installed dependency graph, inspect `pnpm-lock.yaml` in the application repository. Update this page when a direct technology or its role changes, not for every lockfile refresh.
 
