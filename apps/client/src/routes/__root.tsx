@@ -8,9 +8,17 @@ import { NotFoundPage } from "@/pages/404";
 
 if (typeof document !== "undefined") enableMotion();
 
+const publicRoutes = new Set([
+  "/",
+  "/features",
+  "/contact",
+  "/sign-in",
+  "/sign-up",
+]);
+
 function RootLayout() {
   const { pathname } = useLocation();
-  const isLanding = pathname === "/";
+  const showChrome = publicRoutes.has(pathname);
 
   return (
     <div className="min-h-svh overflow-x-clip bg-background text-foreground">
@@ -20,11 +28,11 @@ function RootLayout() {
       >
         Skip to content
       </a>
-      {isLanding && <SiteHeader />}
+      {showChrome && <SiteHeader />}
       <main id="main" tabIndex={-1}>
         <Outlet />
       </main>
-      {isLanding && <SiteFooter />}
+      {showChrome && <SiteFooter />}
       {import.meta.env.DEV && <TanStackRouterDevtools />}
     </div>
   );

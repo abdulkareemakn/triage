@@ -10,13 +10,15 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-const sectionLinks = [
-  { href: "#board", label: "How it works" },
-  { href: "#faq", label: "Questions" },
+const navLinks = [
+  { label: "How it works", to: "/", hash: "board" },
+  { label: "Features", to: "/features", hash: undefined },
+  { label: "Contact", to: "/contact", hash: undefined },
+  { label: "Sign in", to: "/sign-in", hash: undefined },
 ] as const;
 
 const navLinkClass =
-  "inline-flex items-center py-2 text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground";
+  "inline-flex items-center py-2 text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-foreground aria-[current=page]:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground";
 
 const mobileLinkClass =
   "text-2xl font-medium tracking-[-0.02em] text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground";
@@ -43,27 +45,36 @@ export function SiteHeader() {
           aria-label="Main navigation"
           className="hidden items-center gap-7 md:flex"
         >
-          {sectionLinks.map((link) => (
-            <a key={link.href} href={link.href} className={navLinkClass}>
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              to={link.to}
+              hash={link.hash}
+              activeOptions={{ exact: true }}
+              activeProps={{ "aria-current": "page" }}
+              className={navLinkClass}
+            >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href="#waitlist"
+          <Link
+            to="/"
+            hash="waitlist"
             className={buttonVariants({ size: "lg", className: "min-h-10" })}
           >
             Join the waitlist
-          </a>
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3 md:hidden">
           <div className="hidden sm:block">
-            <a
-              href="#waitlist"
+            <Link
+              to="/"
+              hash="waitlist"
               className={buttonVariants({ size: "lg", className: "min-h-10" })}
             >
               Join the waitlist
-            </a>
+            </Link>
           </div>
 
           <Sheet open={open} onOpenChange={setOpen}>
@@ -79,19 +90,23 @@ export function SiteHeader() {
                   aria-label="Mobile navigation"
                   className="mt-10 flex flex-col items-start gap-6"
                 >
-                  {sectionLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.label}
+                      to={link.to}
+                      hash={link.hash}
+                      activeOptions={{ exact: true }}
+                      activeProps={{ "aria-current": "page" }}
                       onClick={() => setOpen(false)}
                       className={mobileLinkClass}
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   ))}
                 </nav>
-                <a
-                  href="#waitlist"
+                <Link
+                  to="/"
+                  hash="waitlist"
                   onClick={() => setOpen(false)}
                   className={buttonVariants({
                     size: "lg",
@@ -99,7 +114,7 @@ export function SiteHeader() {
                   })}
                 >
                   Join the waitlist
-                </a>
+                </Link>
               </div>
             </SheetContent>
           </Sheet>

@@ -1,10 +1,13 @@
 import { IconArrowUp } from "@tabler/icons-react";
+import { Link } from "@tanstack/react-router";
 
 import { WaitlistForm } from "@/components/combined/waitlist-form";
 
 const footerLinks = [
-  { href: "#board", label: "How it works" },
-  { href: "#faq", label: "Questions" },
+  { label: "How it works", to: "/", hash: "board" },
+  { label: "Features", to: "/features", hash: undefined },
+  { label: "Contact", to: "/contact", hash: undefined },
+  { label: "Questions", to: "/", hash: "faq" },
 ] as const;
 
 const linkClass =
@@ -47,9 +50,14 @@ export function SiteFooter() {
               className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"
             >
               {footerLinks.map((link) => (
-                <a key={link.href} href={link.href} className={linkClass}>
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  hash={link.hash}
+                  className={linkClass}
+                >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </nav>
             <div className="flex items-center gap-4 text-[11px] text-muted-foreground">
